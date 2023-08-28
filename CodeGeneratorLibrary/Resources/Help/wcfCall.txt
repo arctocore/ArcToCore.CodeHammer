@@ -1,0 +1,12 @@
+﻿WCF service is configured for Per-Call instance mode, Service instance 
+will be created for each client request. This Service instance will be 
+disposed after response is sent back to client.
+
+WCF service is configured for Per-Session instance mode, logical session 
+between client and service will be maintained. When the client creates 
+new proxy to particular service instance, a service instance 
+will be provided to the client.
+
+WCF service is configured for Singleton instance mode, clients 
+are independently connected to the same single instance. This singleton 
+instance will be created when service is hosted and, it is disposed when service shuts down.

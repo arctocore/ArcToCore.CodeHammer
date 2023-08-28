@@ -1,0 +1,10 @@
+﻿log4net is a tool to help the developer output log statements to a variety of output targets.
+
+Information is logged via one or several loggers. 
+5 levels of logging:
+
+Debug
+Information
+Warnings
+Error
+Fatal

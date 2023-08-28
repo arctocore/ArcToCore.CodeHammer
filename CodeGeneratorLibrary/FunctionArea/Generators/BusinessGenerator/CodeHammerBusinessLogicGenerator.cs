@@ -1,0 +1,996 @@
+﻿/*
+Copyright © ArcToCore All Rights Reserved
+Software license for CodeHammer
+Summary
+License does not expire.
+Can be used for creating unlimited applications
+Can be distributed in binary or object form only
+Can modify source-code but cannot distribute modifications (derivative works)
+ */
+
+namespace CodeHammer.Framework.FunctionArea.Generators.BusinessGenerator
+{
+    using CodeHammer.Entities;
+    using CodeHammer.Framework.FunctionArea.DataUtil;
+    using CodeHammer.Framework.FunctionArea.FileIO;
+    using CodeHammer.Framework.FunctionArea.Log;
+    using System;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Text;
+
+    /// <summary>
+    /// this class CodeHammerBusinessLogicGenerator
+    /// </summary>
+
+    public class CodeHammerBusinessLogicGenerator : CodeHammerBusinessLogicGeneratorContract
+    {
+        #region Variables
+
+        /// <summary>
+        /// The code hammer data utility contract
+        /// </summary>
+        private CodeHammerDataUtilContract codeHammerDataUtilContract = null;
+
+        /// <summary>
+        /// The io manager contract
+        /// </summary>
+        private IOManagerContract ioManagerContract = null;
+
+        /// <summary>
+        /// The log function contract
+        /// </summary>
+        private LogFuncContract logFuncContract = null;
+
+        /// <summary>
+        /// The function type factory contract
+        /// </summary>
+        private FuncTypeFactoryContract funcTypeFactoryContract = null;
+
+        #endregion Variables
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="CodeHammerServiceLibraryGenerator"/> class.
+        /// </summary>
+        /// <param name="codeHammerDataUtilContract">The code hammer data utility contract.</param>
+        /// <param name="ioManagerContract">The io manager contract.</param>
+        /// <param name="logFuncContract">The log function contract.</param>
+        /// <param name="funcTypeFactoryContract">The function type factory contract.</param>
+        public CodeHammerBusinessLogicGenerator(CodeHammerDataUtilContract codeHammerDataUtilContract,
+            IOManagerContract ioManagerContract,
+             LogFuncContract logFuncContract,
+            FuncTypeFactoryContract funcTypeFactoryContract)
+        {
+            this.logFuncContract = logFuncContract;
+            this.ioManagerContract = ioManagerContract;
+            this.codeHammerDataUtilContract = codeHammerDataUtilContract;
+            this.funcTypeFactoryContract = funcTypeFactoryContract;
+
+            logFuncContract = funcTypeFactoryContract.GetFuncFromTypeEnum(FuncTypeFactory.FuncTypeEnum.LOGFUNCCONTRACT);
+            codeHammerDataUtilContract = funcTypeFactoryContract.GetFuncFromTypeEnum(FuncTypeFactory.FuncTypeEnum.CODEHAMMERDATAUTILCONTRACT);
+            ioManagerContract = funcTypeFactoryContract.GetFuncFromTypeEnum(FuncTypeFactory.FuncTypeEnum.IOMANAGERCONTRACT);
+        }
+
+        /// <summary>
+        /// Creates the business logic class.
+        /// </summary>
+        /// <param name="selectTables">if set to <c>true</c> [select tables].</param>
+        /// <param name="tableDic">The table dic.</param>
+        /// <param name="databaseName">Name of the database.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="crudYesNo">if set to <c>true</c> [crud yes no].</param>
+        /// <param name="resultDataOptions">The result data options.</param>
+        /// <param name="targetNamespaceBL">The target namespace BL.</param>
+        /// <param name="path">The path.</param>
+        /// <exception cref="System.Exception"></exception>
+        public void CodeHammerCreateBusinessLogicClass(bool selectTables, Dictionary<string, List<Dictionary<string, string>>> tableDic, string databaseName, CodeHammerTableDto table, bool crudYesNo, List<string> resultDataOptions, string targetNamespaceBL, string path)
+        {
+            string quates = @"""";
+            try
+            {
+                string className = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim().Replace(" ", string.Empty).Trim()) + SuffixDto.Instance().BlSuffixTextBox;
+
+                string classNameDal = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim().Replace(" ", string.Empty).Trim()) + SuffixDto.Instance().DalTextBox;
+
+                string pathToProject = path + ioManagerContract.CodeHammerBusinessLogicFolder + className + ".cs";
+
+                if (ioManagerContract.CheckIfFileExists(pathToProject))
+                {
+                    return;
+                }
+
+                #region Generate BL Layer
+
+                using (StreamWriter streamWriter = new StreamWriter(pathToProject))
+                {
+                    streamWriter.WriteLine("// <auto-generated>");
+                    streamWriter.WriteLine("//     This code was generated by a CodeHammer");
+                    streamWriter.WriteLine("//     Changes to this file may cause incorrect behavior and will be lost if");
+                    streamWriter.WriteLine("//     the code is regenerated");
+                    streamWriter.WriteLine("// </auto-generated>");
+                    streamWriter.WriteLine();
+
+                    //// Create the header for the class
+                    streamWriter.WriteLine("namespace Business");
+                    streamWriter.WriteLine("{");
+
+                    streamWriter.WriteLine("    using System.Collections.Generic;");
+                    streamWriter.WriteLine("    using System.Data;");
+                    streamWriter.WriteLine("    using Data;");
+                    streamWriter.WriteLine("    using Domain;");
+                    streamWriter.WriteLine();
+
+                    streamWriter.WriteLine("    /// <summary>");
+                    streamWriter.WriteLine("    /// This class " + className);
+                    streamWriter.WriteLine("    /// </summary>");
+                    if (ioManagerContract.UseIoC)
+                    {
+                        streamWriter.WriteLine("    public class " + className + ": I" + className);
+                    }
+                    else
+                    {
+                        streamWriter.WriteLine("    public class " + className);
+                    }
+                    streamWriter.WriteLine("    {");
+
+                    var interfaceX = codeHammerDataUtilContract.CodeHammerFormatCamelDTO(classNameDal);
+
+                    streamWriter.WriteLine("        /// <summary>");
+                    streamWriter.WriteLine("        /// This I" + classNameDal + " " + SuffixDto.Instance().DalTextBox);
+                    streamWriter.WriteLine("        /// </summary>");
+                    if (ioManagerContract.UseIoC)
+                    {
+                        streamWriter.WriteLine("        private I" + classNameDal + " " + codeHammerDataUtilContract.CodeHammerFormatCamelDTO(classNameDal) + ";");
+                    }
+                    else
+                    {
+                        streamWriter.WriteLine("        private " + classNameDal + " " + codeHammerDataUtilContract.CodeHammerFormatCamelDTO(classNameDal) + " = new " + classNameDal + "();");
+                    }
+                    streamWriter.WriteLine();
+                    if (ioManagerContract.UseIoC)
+                    {
+                        streamWriter.WriteLine("        /// <summary>");
+                        streamWriter.WriteLine("        /// Initializes a new instance of the <see cref=" + quates + className + SuffixDto.Instance().BlSuffixTextBox + quates + "/> class.");
+                        streamWriter.WriteLine("        /// </summary>");
+                        streamWriter.WriteLine("        /// <param name=" + quates + "dal" + className + SuffixDto.Instance().BlSuffixTextBox + quates + ">The " + codeHammerDataUtilContract.CodeHammerFormatCamelDTO(className) + ".</param>");
+                        streamWriter.WriteLine("        public " + className + "(I" + classNameDal + " " + codeHammerDataUtilContract.CodeHammerFormatCamelDTO(classNameDal) + ")");
+                        streamWriter.WriteLine("        {");
+                        streamWriter.WriteLine("             this." + interfaceX + " = " + interfaceX + ";");
+                        streamWriter.WriteLine("        }");
+                        streamWriter.WriteLine();
+                    }
+                    //// Append the access methods
+
+                    if (crudYesNo)
+                    {
+                        CodeHammerCreateBLInsertMethod(classNameDal, table, streamWriter);
+                        CodeHammerCreateBLUpdateMethod(classNameDal, table, streamWriter);
+                        CodeHammerCreateBLDeleteMethod(classNameDal, table, streamWriter);
+                        CodeHammerCreateBLSelectMethod(classNameDal, table, streamWriter);
+                        CodeHammerCreateBLSelectAllMethod(classNameDal, table, streamWriter);
+                    }
+
+                    //// Close out the class and namespace
+                    streamWriter.WriteLine("    }");
+                    streamWriter.WriteLine("}");
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.ToString());
+            }
+
+                #endregion Generate BL Layer
+        }
+
+        /// <summary>
+        /// Creates the business logic class.
+        /// </summary>
+        /// <param name="selectTables">if set to <c>true</c> [select tables].</param>
+        /// <param name="tableDic">The table dic.</param>
+        /// <param name="databaseName">Name of the database.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="crudYesNo">if set to <c>true</c> [crud yes no].</param>
+        /// <param name="resultDataOptions">The result data options.</param>
+        /// <param name="targetNamespaceBL">The target namespace BL.</param>
+        /// <param name="path">The path.</param>
+        public void CodeHammerCreateBusinessLogicInterface(bool selectTables, Dictionary<string, List<Dictionary<string, string>>> tableDic, string databaseName, CodeHammerTableDto table, bool crudYesNo, List<string> resultDataOptions, string targetNamespaceBL, string path)
+        {
+            string className = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim().Replace(" ", string.Empty).Trim()) + SuffixDto.Instance().BlSuffixTextBox;
+
+            string classNameDal = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim().Replace(" ", string.Empty).Trim()) + SuffixDto.Instance().DalTextBox;
+
+            string pathToProject = path + ioManagerContract.ICodeHammerBusinessLogicFolder + "I" + className + ".cs";
+            if (ioManagerContract.CheckIfFileExists(pathToProject))
+            {
+                return;
+            }
+
+            #region Generate BL Layer
+
+            using (StreamWriter streamWriter = new StreamWriter(pathToProject))
+            {
+                streamWriter.WriteLine("// <auto-generated>");
+                streamWriter.WriteLine("//     This code was generated by a CodeHammer");
+                streamWriter.WriteLine("//     Changes to this file may cause incorrect behavior and will be lost if");
+                streamWriter.WriteLine("//     the code is regenerated");
+                streamWriter.WriteLine("// </auto-generated>");
+
+                streamWriter.WriteLine();
+
+                //// Create the header for the class
+                streamWriter.WriteLine("namespace Business");
+                streamWriter.WriteLine("{");
+                streamWriter.WriteLine("    using System;");
+
+                streamWriter.WriteLine();
+                streamWriter.WriteLine("    /// <summary>");
+                streamWriter.WriteLine("    /// This interface " + className);
+                streamWriter.WriteLine("    /// </summary>");
+                streamWriter.WriteLine("    public interface I" + className);
+                streamWriter.WriteLine("    {");
+                var interfaceX = codeHammerDataUtilContract.CodeHammerFormatCamelDTO(classNameDal);
+                //// Append the access methods
+
+                if (crudYesNo)
+                {
+                    CodeHammerCreateIBLInsertMethod(classNameDal, table, streamWriter);
+                    CodeHammerCreateIBLUpdateMethod(classNameDal, table, streamWriter);
+                    CodeHammerCreateIBLDeleteMethod(classNameDal, table, streamWriter);
+                    CodeHammerCreateIBLSelectMethod(classNameDal, table, streamWriter);
+                    CodeHammerCreateIBLSelectAllMethod(classNameDal, table, streamWriter);
+                }
+
+                //// Close out the class and namespace
+                streamWriter.WriteLine("    }");
+                streamWriter.WriteLine("}");
+            }
+
+            #endregion Generate BL Layer
+        }
+
+        /// <summary>
+        /// Codes the hammer create business logic unit test.
+        /// </summary>
+        /// <param name="selectTables">if set to <c>true</c> [select tables].</param>
+        /// <param name="tableDic">The table dic.</param>
+        /// <param name="databaseName">Name of the database.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="crudYesNo">if set to <c>true</c> [crud yes no].</param>
+        /// <param name="resultDataOptions">The result data options.</param>
+        /// <param name="targetNamespaceBL">The target namespace bl.</param>
+        /// <param name="path">The path.</param>
+        public void CodeHammerCreateBusinessLogicUnitTest(bool selectTables, Dictionary<string, List<Dictionary<string, string>>> tableDic, string databaseName, CodeHammerTableDto table, bool crudYesNo, List<string> resultDataOptions, string targetNamespaceBL, string path)
+        {
+            string className = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim().Replace(" ", string.Empty).Trim()) + SuffixDto.Instance().BlSuffixTextBox;
+
+            string classNameDal = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim().Replace(" ", string.Empty).Trim()) + SuffixDto.Instance().DalTextBox;
+
+            string pathToProject = path + ioManagerContract.VisualstudioSolutionBusinessTestProjectFolder + className + SuffixDto.Instance().TestTextBox + ".cs";
+            if (ioManagerContract.CheckIfFileExists(pathToProject))
+            {
+                return;
+            }
+
+            #region Generate BL Layer UnitTest
+
+            if (ioManagerContract.UnitTest)
+            {
+                using (StreamWriter streamWriter = new StreamWriter(pathToProject))
+                {
+                    streamWriter.WriteLine("// <auto-generated>");
+                    streamWriter.WriteLine("//     This code was generated by a CodeHammer");
+                    streamWriter.WriteLine("//     Changes to this file may cause incorrect behavior and will be lost if");
+                    streamWriter.WriteLine("//     the code is regenerated");
+                    streamWriter.WriteLine("// </auto-generated>");
+
+                    streamWriter.WriteLine();
+
+                    //// Create the header for the class
+                    streamWriter.WriteLine("namespace SolutionTest.BusinessTests");
+                    streamWriter.WriteLine("{");
+                    streamWriter.WriteLine("    using Business;");
+                    streamWriter.WriteLine("    using Domain;");
+
+                    if (ioManagerContract.UnitTestTypeEnum == IOManager.UnitTestEnum.NUnit)
+                    {
+                        streamWriter.WriteLine("    using NUnit.Framework;");
+                    }
+                    if (ioManagerContract.UnitTestTypeEnum == IOManager.UnitTestEnum.VSUnitTest)
+                    {
+                        streamWriter.WriteLine("    using Microsoft.VisualStudio.TestTools.UnitTesting;");
+                    }
+
+                    streamWriter.WriteLine();
+                    streamWriter.WriteLine("    /// <summary>");
+                    streamWriter.WriteLine("    /// This class " + className + SuffixDto.Instance().TestTextBox);
+                    streamWriter.WriteLine("    /// </summary>");
+                    if (ioManagerContract.UnitTestTypeEnum == IOManager.UnitTestEnum.NUnit)
+                    {
+                        streamWriter.WriteLine("    [TestFixture]");
+                    }
+                    if (ioManagerContract.UnitTestTypeEnum == IOManager.UnitTestEnum.VSUnitTest)
+                    {
+                        streamWriter.WriteLine("    [TestClass]");
+                    }
+                    streamWriter.WriteLine("    public class " + className + SuffixDto.Instance().TestTextBox);
+                    streamWriter.WriteLine("    {");
+                    var interfaceX = codeHammerDataUtilContract.CodeHammerFormatCamelDTO(classNameDal);
+
+                    if (crudYesNo)
+                    {
+                        CodeHammerCreateBLInsertMethodTest(classNameDal, table, streamWriter);
+                        CodeHammerCreateBLUpdateMethodTest(classNameDal, table, streamWriter);
+                        CodeHammerCreateBLDeleteMethodTest(classNameDal, table, streamWriter);
+                        CodeHammerCreateBLSelectMethodTest(classNameDal, table, streamWriter);
+                        CodeHammerCreateBLSelectAllMethodTest(classNameDal, table, streamWriter);
+                    }
+
+                    //// Close out the class and namespace
+                    streamWriter.WriteLine("    }");
+                    streamWriter.WriteLine("}");
+                }
+            }
+
+            #endregion Generate BL Layer UnitTest
+        }
+
+        #region BL Layer
+
+        /// <summary>
+        /// Creates the BL delete method.
+        /// </summary>
+        /// <param name="codeHammerDALClassName">Name of the code hammer dal class.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="streamWriter">The stream writer.</param>
+        /// <returns>if sucess then return true</returns>
+        public bool CodeHammerCreateBLDeleteMethod(string codeHammerDALClassName, CodeHammerTableDto table, StreamWriter streamWriter)
+        {
+            try
+            {
+                string className = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim());// +;//// +;
+                string variableName = codeHammerDataUtilContract.CodeHammerFormatCamelDTO(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim()) + SuffixDto.Instance().DtoTextBox;
+
+                //// Append the method header
+                streamWriter.WriteLine("        /// <summary>");
+                streamWriter.WriteLine("        /// Deletes a record to the " + table.CodeHammerName + " table.");
+                streamWriter.WriteLine("        /// </summary>");
+
+                string quates = @"""";
+                streamWriter.WriteLine("        /// <param name=" + quates + variableName + quates + ">The " + variableName + ".</param>");
+                streamWriter.WriteLine("        /// <param name=" + quates + "systemMessage" + quates + ">The systemMessage.</param>");
+
+                streamWriter.WriteLine("        /// <returns>return true if success</returns>");
+                streamWriter.WriteLine("        public bool " + className + "RemoveByID(" + className + SuffixDto.Instance().DtoTextBox + " " + variableName + ", out string systemMessage)");
+                streamWriter.WriteLine("        {");
+
+                streamWriter.WriteLine("            systemMessage = string.Empty;");
+                streamWriter.WriteLine("            string nestedSystemMessage = string.Empty;");
+
+                StringBuilder strBuildstring1 = new StringBuilder();
+                strBuildstring1.Append("    systemMessage = ");
+                strBuildstring1.Append(" nestedSystemMessage;");
+
+                streamWriter.WriteLine("            if (!this." + codeHammerDataUtilContract.CodeHammerFormatCamelDTO(codeHammerDALClassName) + "." + className + "RemoveByID(" + variableName + ", out nestedSystemMessage))");
+                streamWriter.WriteLine("            {");
+                streamWriter.WriteLine("            " + strBuildstring1.ToString());
+
+                streamWriter.WriteLine("                return false;");
+                streamWriter.WriteLine("            }");
+                streamWriter.WriteLine();
+                streamWriter.WriteLine("            return true;");
+                //// Append the method footer
+                streamWriter.WriteLine("        }");
+                streamWriter.WriteLine();
+                return true;
+            }
+            catch
+            {
+                return false;
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Creates the BL insert method.
+        /// </summary>
+        /// <param name="codeHammerDALClassName">Name of the dal class.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="streamWriter">The stream writer.</param>
+        /// <returns>if sucess then return true</returns>
+        public bool CodeHammerCreateBLInsertMethod(string codeHammerDALClassName, CodeHammerTableDto table, StreamWriter streamWriter)
+        {
+            try
+            {
+                string className = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim());// +;//// +;
+                string variableName = codeHammerDataUtilContract.CodeHammerFormatCamelDTO(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim()) + SuffixDto.Instance().DtoTextBox;
+
+                // Append the method header
+                streamWriter.WriteLine("        /// <summary>");
+                streamWriter.WriteLine("        /// Saves a record to the " + table.CodeHammerName + " table.");
+                streamWriter.WriteLine("        /// </summary>");
+                string quates = @"""";
+                streamWriter.WriteLine("        /// <param name=" + quates + variableName + quates + ">The " + variableName + ".</param>");
+                streamWriter.WriteLine("        /// <param name=" + quates + "systemMessage" + quates + ">The systemMessage.</param>");
+
+                streamWriter.WriteLine("        /// <returns>return true if success</returns>");
+                streamWriter.WriteLine("        public bool " + className + "Save(" + className + SuffixDto.Instance().DtoTextBox + " " + variableName + ", out string systemMessage)");
+                streamWriter.WriteLine("        {");
+                streamWriter.WriteLine("            systemMessage = string.Empty;");
+
+                streamWriter.WriteLine("            string nestedSystemMessage = string.Empty;");
+
+                StringBuilder strBuildstring1 = new StringBuilder();
+                strBuildstring1.Append("    systemMessage = ");
+                strBuildstring1.Append(" nestedSystemMessage;");
+
+                streamWriter.WriteLine("            if (!this." + codeHammerDataUtilContract.CodeHammerFormatCamelDTO(codeHammerDALClassName) + "." + className + "Save(" + variableName + ", out nestedSystemMessage))");
+                streamWriter.WriteLine("            {");
+                streamWriter.WriteLine("            " + strBuildstring1.ToString());
+
+                streamWriter.WriteLine("                return false;");
+                streamWriter.WriteLine("            }");
+                streamWriter.WriteLine();
+                streamWriter.WriteLine("            return true;");
+
+                //// Append the method footer
+                streamWriter.WriteLine("        }");
+                streamWriter.WriteLine();
+                return true;
+            }
+            catch
+            {
+                return false;
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Creates the BL select all method.
+        /// </summary>
+        /// <param name="codeHammerDALClassName">Name of the code hammer dal class.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="streamWriter">The stream writer.</param>
+        /// <returns>if sucess then return true</returns>
+        public bool CodeHammerCreateBLSelectAllMethod(string codeHammerDALClassName, CodeHammerTableDto table, StreamWriter streamWriter)
+        {
+            try
+            {
+                string className = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim());// +;//// +;
+                string variableName = codeHammerDataUtilContract.CodeHammerFormatCamelDTO(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim()) + SuffixDto.Instance().DtoTextBox;
+
+                string listobj = "List<" + className + SuffixDto.Instance().DtoTextBox + "> " + variableName + "List";
+                string listobjVariable = variableName + "List";
+                //// Append the method header
+                streamWriter.WriteLine("        /// <summary>");
+                streamWriter.WriteLine("        /// Select records by page size");
+                streamWriter.WriteLine("        /// </summary>");
+
+                string quates = @"""";
+                streamWriter.WriteLine("        /// <param name=" + quates + variableName + quates + ">The " + variableName + "</param>");
+                streamWriter.WriteLine("        /// <param name=" + quates + variableName + "List" + quates + ">The " + variableName + "List" + ".</param>");
+                streamWriter.WriteLine("        /// <param name=" + quates + "systemMessage" + quates + ">The systemMessage.</param>");
+
+                streamWriter.WriteLine("        /// <returns>return true if success</returns>");
+                streamWriter.WriteLine("        public bool " + className + "GetAll(" + className + SuffixDto.Instance().DtoTextBox + " " + variableName + ", out " + listobj + ", out string systemMessage)");
+                streamWriter.WriteLine("        {");
+
+                streamWriter.WriteLine("            systemMessage = string.Empty;");
+                streamWriter.WriteLine("            string nestedSystemMessage = string.Empty;");
+                streamWriter.WriteLine("            " + variableName + "List" + " = null;");
+
+                StringBuilder strBuildstring1 = new StringBuilder();
+                strBuildstring1.Append("    systemMessage = ");
+                strBuildstring1.Append(" nestedSystemMessage;");
+
+                streamWriter.WriteLine("            if (!this." + codeHammerDataUtilContract.CodeHammerFormatCamelDTO(codeHammerDALClassName) + "." + className + "GetAll(" + variableName + ", out " + listobjVariable + ", out nestedSystemMessage))");
+                streamWriter.WriteLine("            {");
+                streamWriter.WriteLine("            " + strBuildstring1.ToString());
+
+                streamWriter.WriteLine("                return false;");
+                streamWriter.WriteLine("            }");
+                streamWriter.WriteLine();
+                streamWriter.WriteLine("            return true;");
+                //// Append the method footer
+                streamWriter.WriteLine("        }");
+                streamWriter.WriteLine();
+                return true;
+            }
+            catch
+            {
+                return false;
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Creates the BL select method.
+        /// </summary>
+        /// <param name="codeHammerDALClassName">Name of the code hammer dal class.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="streamWriter">The stream writer.</param>
+        /// <returns>if sucess then return true</returns>
+        public bool CodeHammerCreateBLSelectMethod(string codeHammerDALClassName, CodeHammerTableDto table, StreamWriter streamWriter)
+        {
+            try
+            {
+                string className = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim());// +;//// +;
+                string variableName = codeHammerDataUtilContract.CodeHammerFormatCamelDTO(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim()) + SuffixDto.Instance().DtoTextBox;
+
+                string listobj = "List<" + className + SuffixDto.Instance().DtoTextBox + "> " + variableName + "List";
+                string listobjVariable = variableName + "List";
+                //// Append the method header
+                streamWriter.WriteLine("        /// <summary>");
+                streamWriter.WriteLine("        /// Select records to the " + table.CodeHammerName + " table.");
+                streamWriter.WriteLine("        /// </summary>");
+
+                string quates = @"""";
+                streamWriter.WriteLine("        /// <param name=" + quates + variableName + quates + ">The " + variableName + "</param>");
+                streamWriter.WriteLine("        /// <param name=" + quates + variableName + "List" + quates + ">The " + quates + variableName + "List" + quates + ".</param>");
+                streamWriter.WriteLine("        /// <param name=" + quates + "systemMessage" + quates + ">The systemMessage.</param>");
+
+                streamWriter.WriteLine("        /// <returns>return true if success</returns>");
+                streamWriter.WriteLine("        public bool " + className + "GetByID(" + className + SuffixDto.Instance().DtoTextBox + " " + variableName + ", out " + listobj + ", out string systemMessage)");
+                streamWriter.WriteLine("        {");
+
+                streamWriter.WriteLine("            systemMessage = string.Empty;");
+                streamWriter.WriteLine("            string nestedSystemMessage = string.Empty;");
+                streamWriter.WriteLine("            " + variableName + "List" + " = null;");
+
+                StringBuilder strBuildstring1 = new StringBuilder();
+                strBuildstring1.Append("    systemMessage = ");
+                strBuildstring1.Append(" nestedSystemMessage;");
+
+                streamWriter.WriteLine("            if (!this." + codeHammerDataUtilContract.CodeHammerFormatCamelDTO(codeHammerDALClassName) + "." + className + "GetByID(" + variableName + ", out " + listobjVariable + ", out nestedSystemMessage))");
+                streamWriter.WriteLine("            {");
+                streamWriter.WriteLine("            " + strBuildstring1.ToString());
+
+                streamWriter.WriteLine("                return false;");
+                streamWriter.WriteLine("            }");
+                streamWriter.WriteLine();
+                streamWriter.WriteLine("            return true;");
+                //// Append the method footer
+                streamWriter.WriteLine("        }");
+                streamWriter.WriteLine();
+                return true;
+            }
+            catch
+            {
+                return false;
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Creates the BL update method.
+        /// </summary>
+        /// <param name="codeHammerDALClassName">Name of the code hammer dal class.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="streamWriter">The stream writer.</param>
+        /// <returns>if sucess then return true</returns>
+        public bool CodeHammerCreateBLUpdateMethod(string codeHammerDALClassName, CodeHammerTableDto table, StreamWriter streamWriter)
+        {
+            try
+            {
+                string className = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim());// +;//// +;
+                string variableName = codeHammerDataUtilContract.CodeHammerFormatCamelDTO(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim()) + SuffixDto.Instance().DtoTextBox;
+
+                //// Append the method header
+                streamWriter.WriteLine("        /// <summary>");
+                streamWriter.WriteLine("        /// Updates a record to the " + table.CodeHammerName + " table.");
+                streamWriter.WriteLine("        /// </summary>");
+                string quates = @"""";
+                streamWriter.WriteLine("        /// <param name=" + quates + variableName + quates + ">The " + variableName + ".</param>");
+                streamWriter.WriteLine("        /// <param name=" + quates + "systemMessage" + quates + ">The systemMessage.</param>");
+
+                streamWriter.WriteLine("        /// <returns>return true if success</returns>");
+                streamWriter.WriteLine("        public bool " + className + "SetByID(" + className + SuffixDto.Instance().DtoTextBox + " " + variableName + ", out string systemMessage)");
+                streamWriter.WriteLine("        {");
+
+                streamWriter.WriteLine("            systemMessage = string.Empty;");
+                streamWriter.WriteLine("            string nestedSystemMessage = string.Empty;");
+
+                StringBuilder strBuildstring1 = new StringBuilder();
+                strBuildstring1.Append("    systemMessage = ");
+                strBuildstring1.Append(" nestedSystemMessage;");
+
+                streamWriter.WriteLine("            if (!this." + codeHammerDataUtilContract.CodeHammerFormatCamelDTO(codeHammerDALClassName) + "." + className + "SetByID(" + variableName + ", out nestedSystemMessage))");
+                streamWriter.WriteLine("            {");
+                streamWriter.WriteLine("            " + strBuildstring1.ToString());
+
+                streamWriter.WriteLine("                return false;");
+                streamWriter.WriteLine("            }");
+                streamWriter.WriteLine();
+                streamWriter.WriteLine("            return true;");
+                //// Append the method footer
+                streamWriter.WriteLine("        }");
+                streamWriter.WriteLine();
+                return true;
+            }
+            catch
+            {
+                return false;
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Codes the hammer create ibl delete method.
+        /// </summary>
+        /// <param name="table">The table.</param>
+        /// <param name="streamWriter">The stream writer.</param>
+        public void CodeHammerCreateIBLDeleteMethod(CodeHammerTableDto table, StreamWriter streamWriter)
+        {
+            if (table.CodeHammerPrimaryKeys.Count > 0)
+            {
+                string className = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim());// +;//// +;
+                string variableName = codeHammerDataUtilContract.CodeHammerFormatCamelDTO(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim()) + SuffixDto.Instance().DtoTextBox;
+
+                streamWriter.WriteLine("        public bool " + className + "RemoveByID(global::Domain." + className + SuffixDto.Instance().DtoTextBox + " " + variableName + ", out string systemMessage);");
+                streamWriter.WriteLine();
+            }
+        }
+
+        /// <summary>
+        /// Codes the hammer create bl delete method.
+        /// </summary>
+        /// <param name="codeHammerDALClassName">Name of the code hammer dal class.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="streamWriter">The stream writer.</param>
+        /// <returns>if sucess then return true</returns>
+        public bool CodeHammerCreateIBLDeleteMethod(string codeHammerDALClassName, CodeHammerTableDto table, StreamWriter streamWriter)
+        {
+            try
+            {
+                string className = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim());// +;//// +;
+                string variableName = codeHammerDataUtilContract.CodeHammerFormatCamelDTO(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim()) + SuffixDto.Instance().DtoTextBox;
+                string quates = @"""";
+                streamWriter.WriteLine("        /// <summary>");
+                streamWriter.WriteLine("        /// " + className + "RemoveByID");
+                streamWriter.WriteLine("        /// </summary>");
+                streamWriter.WriteLine("        /// <param name=" + quates + className + SuffixDto.Instance().DtoTextBox + quates + ">The " + variableName + "</param>");
+                streamWriter.WriteLine("        /// <param name=" + quates + "systemMessage" + quates + ">The systemMessage.</param>");
+                streamWriter.WriteLine("        /// <returns>return true if success</returns>");
+                streamWriter.WriteLine("        bool " + className + "RemoveByID(global::Domain." + className + SuffixDto.Instance().DtoTextBox + " " + variableName + ", out string systemMessage);");
+                streamWriter.WriteLine();
+                return true;
+            }
+            catch
+            {
+                return false;
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Codes the hammer create bl delete method test.
+        /// </summary>
+        /// <param name="codeHammerDALClassName">Name of the code hammer dal class.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="streamWriter">The stream writer.</param>
+        /// <returns>if sucess then return true</returns>
+        public bool CodeHammerCreateBLDeleteMethodTest(string codeHammerDALClassName, CodeHammerTableDto table, StreamWriter streamWriter)
+        {
+            try
+            {
+                string className = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim());// +;//// +;
+
+                streamWriter.WriteLine("        /// <summary>");
+                streamWriter.WriteLine("        /// " + className + "RemoveByID test.");
+                streamWriter.WriteLine("        /// </summary>");
+
+                if (ioManagerContract.UnitTestTypeEnum == IOManager.UnitTestEnum.NUnit)
+                {
+                    streamWriter.WriteLine("        [Test]");
+                }
+                if (ioManagerContract.UnitTestTypeEnum == IOManager.UnitTestEnum.VSUnitTest)
+                {
+                    streamWriter.WriteLine("        [TestMethod]");
+                }
+                streamWriter.WriteLine("        public void " + className + "BRemoveByIDTest()");
+                streamWriter.WriteLine("        {");
+                streamWriter.WriteLine("            Assert.Fail();");
+                streamWriter.WriteLine("        }");
+                streamWriter.WriteLine();
+                return true;
+            }
+            catch
+            {
+                return false;
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Codes the hammer create ibl insert method.
+        /// </summary>
+        /// <param name="codeHammerDALClassName">Name of the code hammer dal class.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="streamWriter">The stream writer.</param>
+        /// <returns>if sucess then return true</returns>
+        public bool CodeHammerCreateIBLInsertMethod(string codeHammerDALClassName, CodeHammerTableDto table, StreamWriter streamWriter)
+        {
+            try
+            {
+                string className = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim());// +;//// +;
+                string variableName = codeHammerDataUtilContract.CodeHammerFormatCamelDTO(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim()) + SuffixDto.Instance().DtoTextBox;
+
+                string quates = @"""";
+
+                streamWriter.WriteLine("        /// <summary>");
+                streamWriter.WriteLine("        /// " + className + "Save.");
+                streamWriter.WriteLine("        /// </summary>");
+                streamWriter.WriteLine("        /// <param name=" + quates + className + SuffixDto.Instance().DtoTextBox + quates + ">The " + variableName + "</param>");
+                streamWriter.WriteLine("        /// <param name=" + quates + "systemMessage" + quates + ">The systemMessage.</param>");
+                streamWriter.WriteLine("        /// <returns>return true if success</returns>");
+                streamWriter.WriteLine("        bool " + className + "Save(global::Domain." + className + SuffixDto.Instance().DtoTextBox + " " + variableName + ", out string systemMessage);");
+                streamWriter.WriteLine();
+                return true;
+            }
+            catch
+            {
+                return false;
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Codes the hammer create bl insert method test.
+        /// </summary>
+        /// <param name="codeHammerDALClassName">Name of the code hammer dal class.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="streamWriter">The stream writer.</param>
+        /// <returns>if sucess then return true</returns>
+        public bool CodeHammerCreateBLInsertMethodTest(string codeHammerDALClassName, CodeHammerTableDto table, StreamWriter streamWriter)
+        {
+            try
+            {
+                string className = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim());// +;//// +;
+
+                streamWriter.WriteLine("        /// <summary>");
+                streamWriter.WriteLine("        /// " + className + "Save test.");
+                streamWriter.WriteLine("        /// </summary>");
+
+                if (ioManagerContract.UnitTestTypeEnum == IOManager.UnitTestEnum.NUnit)
+                {
+                    streamWriter.WriteLine("        [Test]");
+                }
+                if (ioManagerContract.UnitTestTypeEnum == IOManager.UnitTestEnum.VSUnitTest)
+                {
+                    streamWriter.WriteLine("        [TestMethod]");
+                }
+
+                streamWriter.WriteLine("        public void " + className + "SaveTest()");
+                streamWriter.WriteLine("        {");
+                streamWriter.WriteLine("            Assert.Fail();");
+                streamWriter.WriteLine("        }");
+                streamWriter.WriteLine();
+                return true;
+            }
+            catch
+            {
+                return false;
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Codes the hammer create ibl select all method.
+        /// </summary>
+        /// <param name="codeHammerDALClassName">Name of the code hammer dal class.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="streamWriter">The stream writer.</param>
+        /// <returns>if sucess then return true</returns>
+        public bool CodeHammerCreateIBLSelectAllMethod(string codeHammerDALClassName, CodeHammerTableDto table, StreamWriter streamWriter)
+        {
+            try
+            {
+                string className = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim());// +;//// +;
+                string variableName = codeHammerDataUtilContract.CodeHammerFormatCamelDTO(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim()) + SuffixDto.Instance().DtoTextBox;
+                string listobj = "global::System.Collections.Generic.List<global::Domain." + className + SuffixDto.Instance().DtoTextBox + "> " + variableName + "List";
+                string listobjVariable = variableName + "List";
+
+                string quates = @"""";
+                streamWriter.WriteLine("        /// <summary>");
+                streamWriter.WriteLine("        /// Select records by page size");
+                streamWriter.WriteLine("        /// </summary>");
+                streamWriter.WriteLine("        /// <param name=" + quates + className + SuffixDto.Instance().DtoTextBox + quates + ">The " + variableName + "</param>");
+                streamWriter.WriteLine("        /// <param name=" + quates + "codeHammer" + className + SuffixDto.Instance().DtoTextBox + "List" + quates + ">The " + variableName + "List</param>");
+                streamWriter.WriteLine("        /// <param name=" + quates + "systemMessage" + quates + ">The systemMessage.</param>");
+                streamWriter.WriteLine("        bool " + className + "GetAll(global::Domain." + className + SuffixDto.Instance().DtoTextBox + " " + variableName + ", out " + listobj + ", out string systemMessage);");
+                return true;
+            }
+            catch
+            {
+                return false;
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Codes the hammer create bl select all method test.
+        /// </summary>
+        /// <param name="codeHammerDALClassName">Name of the code hammer dal class.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="streamWriter">The stream writer.</param>
+        /// <returns>if sucess then return true</returns>
+        public bool CodeHammerCreateBLSelectAllMethodTest(string codeHammerDALClassName, CodeHammerTableDto table, StreamWriter streamWriter)
+        {
+            try
+            {
+                string className = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim());// +;//// +;
+
+                streamWriter.WriteLine("        /// <summary>");
+                streamWriter.WriteLine("        /// " + className + "GetAll test.");
+                streamWriter.WriteLine("        /// </summary>");
+                if (ioManagerContract.UnitTestTypeEnum == IOManager.UnitTestEnum.NUnit)
+                {
+                    streamWriter.WriteLine("        [Test]");
+                }
+                if (ioManagerContract.UnitTestTypeEnum == IOManager.UnitTestEnum.VSUnitTest)
+                {
+                    streamWriter.WriteLine("        [TestMethod]");
+                }
+                streamWriter.WriteLine("        public void " + className + "GetAllTest()");
+                streamWriter.WriteLine("        {");
+                streamWriter.WriteLine("            Assert.Fail();");
+
+                streamWriter.WriteLine("        }");
+                streamWriter.WriteLine();
+                return true;
+            }
+            catch
+            {
+                return false;
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Codes the hammer create bl select method.
+        /// </summary>
+        /// <param name="codeHammerDALClassName">Name of the code hammer dal class.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="streamWriter">The stream writer.</param>
+        /// <returns>if sucess then return true</returns>
+        public bool CodeHammerCreateIBLSelectMethod(string codeHammerDALClassName, CodeHammerTableDto table, StreamWriter streamWriter)
+        {
+            try
+            {
+                string className = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim());// +;//// +;
+                string variableName = codeHammerDataUtilContract.CodeHammerFormatCamelDTO(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim()) + SuffixDto.Instance().DtoTextBox;
+                string listobj = "global::System.Collections.Generic.List<global::Domain." + className + SuffixDto.Instance().DtoTextBox + "> " + variableName + "List";
+                string listobjVariable = variableName + "List";
+
+                string quates = @"""";
+                streamWriter.WriteLine("        /// <summary>");
+                streamWriter.WriteLine("        /// " + className + "GetByID");
+                streamWriter.WriteLine("        /// </summary>");
+                streamWriter.WriteLine("        /// <param name=" + quates + className + SuffixDto.Instance().DtoTextBox + quates + ">The " + variableName + "</param>");
+                streamWriter.WriteLine("        /// <param name=" + quates + "codeHammer" + className + SuffixDto.Instance().DtoTextBox + "List" + quates + ">The " + variableName + "List</param>");
+                streamWriter.WriteLine("        /// <param name=" + quates + "systemMessage" + quates + ">The systemMessage.</param>");
+                streamWriter.WriteLine("        bool " + className + "GetByID(global::Domain." + className + SuffixDto.Instance().DtoTextBox + " " + variableName + ", out " + listobj + ", out string systemMessage);");
+                streamWriter.WriteLine();
+                return true;
+            }
+            catch
+            {
+                return false;
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Codes the hammer create bl select method test.
+        /// </summary>
+        /// <param name="codeHammerDALClassName">Name of the code hammer dal class.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="streamWriter">The stream writer.</param>
+        /// <returns>if sucess then return true</returns>
+        public bool CodeHammerCreateBLSelectMethodTest(string codeHammerDALClassName, CodeHammerTableDto table, StreamWriter streamWriter)
+        {
+            try
+            {
+                string className = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim());// +;//// +;
+
+                streamWriter.WriteLine("        /// <summary>");
+                streamWriter.WriteLine("        /// " + className + "GetByID test.");
+                streamWriter.WriteLine("        /// </summary>");
+                if (ioManagerContract.UnitTestTypeEnum == IOManager.UnitTestEnum.NUnit)
+                {
+                    streamWriter.WriteLine("        [Test]");
+                }
+                if (ioManagerContract.UnitTestTypeEnum == IOManager.UnitTestEnum.VSUnitTest)
+                {
+                    streamWriter.WriteLine("        [TestMethod]");
+                }
+                streamWriter.WriteLine("        public void " + className + "GetByIDTest()");
+                streamWriter.WriteLine("        {");
+                streamWriter.WriteLine("            Assert.Fail();");
+
+                streamWriter.WriteLine("        }");
+                streamWriter.WriteLine();
+                return true;
+            }
+            catch
+            {
+                return false;
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Codes the hammer create bl update method.
+        /// </summary>
+        /// <param name="codeHammerDALClassName">Name of the code hammer dal class.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="streamWriter">The stream writer.</param>
+        /// <returns>
+        /// if sucess then return true
+        /// </returns>
+        public bool CodeHammerCreateIBLUpdateMethod(string codeHammerDALClassName, CodeHammerTableDto table, StreamWriter streamWriter)
+        {
+            try
+            {
+                string className = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim());// +;//// +;
+                string variableName = codeHammerDataUtilContract.CodeHammerFormatCamelDTO(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim()) + SuffixDto.Instance().DtoTextBox;
+                string quates = @"""";
+                streamWriter.WriteLine("        /// <summary>");
+                streamWriter.WriteLine("        /// " + className + "SetByID");
+                streamWriter.WriteLine("        /// </summary>");
+                streamWriter.WriteLine("        /// <param name=" + quates + className + SuffixDto.Instance().DtoTextBox + quates + ">The " + variableName + "</param>");
+                streamWriter.WriteLine("        /// <param name=" + quates + "systemMessage" + quates + ">The systemMessage.</param>");
+                streamWriter.WriteLine("        /// <returns>return true if success</returns>");
+                streamWriter.WriteLine("        bool " + className + "SetByID(global::Domain." + className + SuffixDto.Instance().DtoTextBox + " " + variableName + ", out string systemMessage);");
+                streamWriter.WriteLine();
+                return true;
+            }
+            catch
+            {
+                return false;
+                throw;
+            }
+        }
+
+        /// <summary>
+        /// Codes the hammer create bl update method test.
+        /// </summary>
+        /// <param name="codeHammerDALClassName">Name of the code hammer dal class.</param>
+        /// <param name="table">The table.</param>
+        /// <param name="streamWriter">The stream writer.</param>
+        /// <returns>if sucess then return true</returns>
+        public bool CodeHammerCreateBLUpdateMethodTest(string codeHammerDALClassName, CodeHammerTableDto table, StreamWriter streamWriter)
+        {
+            try
+            {
+                string className = codeHammerDataUtilContract.CodeHammerFormatPascal(table.CodeHammerName.Replace("_", "").Replace(" ", string.Empty).Trim());// +;//// +;
+
+                streamWriter.WriteLine("        /// <summary>");
+                streamWriter.WriteLine("        /// " + className + "SetByID test.");
+                streamWriter.WriteLine("        /// </summary>");
+                if (ioManagerContract.UnitTestTypeEnum == IOManager.UnitTestEnum.NUnit)
+                {
+                    streamWriter.WriteLine("        [Test]");
+                }
+                if (ioManagerContract.UnitTestTypeEnum == IOManager.UnitTestEnum.VSUnitTest)
+                {
+                    streamWriter.WriteLine("        [TestMethod]");
+                }
+                streamWriter.WriteLine("        public void " + className + "SetByIDTest()");
+                streamWriter.WriteLine("        {");
+                streamWriter.WriteLine("            Assert.Fail();");
+
+                streamWriter.WriteLine("        }");
+                streamWriter.WriteLine();
+                return true;
+            }
+            catch
+            {
+                return false;
+                throw;
+            }
+        }
+
+        #endregion BL Layer
+    }
+}

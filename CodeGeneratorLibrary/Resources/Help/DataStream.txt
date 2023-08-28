@@ -1,0 +1,36 @@
+﻿ResponseFormat: Json/Xml
+
+Json example:
+
+The following is an example response Json body: 
+[{
+	"ID":2147483647,
+	"TypeID":2147483647,
+	"Date":"\/Date(928142400000+0200)\/",
+	"PageSize":2147483647,
+	"SomeID":2147483647,
+	"Rowguid":"1627aea5-8e0a-4371-9022-9b504344e724"
+}]
+
+Xml example:
+
+<ArrayOfEntityContactDC xmlns="http://schemas.datacontract.org/2004/07/ServiceLibrary">
+  <ArrayOfEntityContactDC>
+    <ID>2147483647</ID>
+    <TypeID>2147483647</TypeID>
+    <Date>1999-05-31T11:20:00</Date>
+    <PageSize>2147483647</PageSize>
+    <SomeID>2147483647</SomeID>
+    <Rowguid>1627aea5-8e0a-4371-9022-9b504344e724</Rowguid>
+  </ArrayOfEntityContactDC>
+  <EntityContactDC>
+    <ID>2147483647</ID>
+    <TypeID>2147483647</TypeID>
+    <Date>1999-05-31T11:20:00</Date>
+    <PageSize>2147483647</PageSize>
+    <SomeID>2147483647</SomeID>
+    <Rowguid>1627aea5-8e0a-4371-9022-9b504344e724</Rowguid>
+  </EntityContactDC>
+</ArrayOfEntityContactDC>
+
+

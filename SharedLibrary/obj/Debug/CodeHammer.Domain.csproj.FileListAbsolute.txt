@@ -1,0 +1,17 @@
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\SharedLibrary\bin\Debug\CodeHammer.Domain.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\SharedLibrary\bin\Debug\CodeHammer.Domain.pdb
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\SharedLibrary\bin\Debug\Ninject.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\SharedLibrary\bin\Debug\Ninject.xml
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\SharedLibrary\obj\Debug\CodeHammer.Domain.csproj.AssemblyReference.cache
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\SharedLibrary\obj\Debug\CodeHammer.Domain.csproj.CoreCompileInputs.cache
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\SharedLibrary\obj\Debug\CodeHammer.Domain.csproj.CopyComplete
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\SharedLibrary\obj\Debug\CodeHammer.Domain.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\SharedLibrary\obj\Debug\CodeHammer.Domain.pdb
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammerX\SharedLibrary\bin\Debug\CodeHammer.Domain.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammerX\SharedLibrary\bin\Debug\CodeHammer.Domain.pdb
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammerX\SharedLibrary\bin\Debug\Ninject.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammerX\SharedLibrary\bin\Debug\Ninject.xml
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammerX\SharedLibrary\obj\Debug\CodeHammer.Domain.csproj.CoreCompileInputs.cache
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammerX\SharedLibrary\obj\Debug\CodeHammer.Domain.csproj.CopyComplete
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammerX\SharedLibrary\obj\Debug\CodeHammer.Domain.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammerX\SharedLibrary\obj\Debug\CodeHammer.Domain.pdb

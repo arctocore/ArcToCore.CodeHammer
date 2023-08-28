@@ -1,0 +1,4 @@
+﻿SQL Stored Procedures:
+
+A stored procedure is a group of Transact SQL statements compiled into a single execution plan.
+Stored procedures assist in achieving a consistent implementation of logic across the application.

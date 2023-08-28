@@ -1,0 +1,14 @@
+﻿Throttling enables you to avoid your service and the underlying resources it allocates and uses.
+This service behavior provides 3 settings
+
+MaxConcurrentCalls     : Max number of messages actively processing across a ServiceHost
+	- Default setting: 200
+
+MaxConcurrentInstances : Max number of InstanceContext objects in the service that can execute at one time.
+	- Default setting: 200
+
+MaxConcurrentSessions  : Max number of sessions a ServiceHost object can accept at one time.
+	- Default setting: 200
+
+The use of ServiceThrottlingBehavior through an application configuration file is the most common 
+method of modifying execution to maximize service performance.

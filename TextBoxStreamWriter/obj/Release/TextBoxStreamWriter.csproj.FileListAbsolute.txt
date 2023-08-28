@@ -1,0 +1,17 @@
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\TextBoxStreamWriter\bin\Release\TextBoxStreamWriter.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\TextBoxStreamWriter\bin\Release\TextBoxStreamWriter.pdb
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\TextBoxStreamWriter\bin\Release\Ninject.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\TextBoxStreamWriter\bin\Release\Ninject.xml
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\TextBoxStreamWriter\obj\Release\TextBoxStreamWriter.csproj.CoreCompileInputs.cache
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\TextBoxStreamWriter\obj\Release\TextBoxStreamWriter.csproj.CopyComplete
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\TextBoxStreamWriter\obj\Release\TextBoxStreamWriter.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\TextBoxStreamWriter\obj\Release\TextBoxStreamWriter.pdb
+C:\tmp\DEMO\TextBoxStreamWriter\bin\Release\TextBoxStreamWriter.dll
+C:\tmp\DEMO\TextBoxStreamWriter\bin\Release\TextBoxStreamWriter.pdb
+C:\tmp\DEMO\TextBoxStreamWriter\bin\Release\Ninject.dll
+C:\tmp\DEMO\TextBoxStreamWriter\bin\Release\Ninject.xml
+C:\tmp\DEMO\TextBoxStreamWriter\obj\Release\TextBoxStreamWriter.csproj.AssemblyReference.cache
+C:\tmp\DEMO\TextBoxStreamWriter\obj\Release\TextBoxStreamWriter.csproj.CoreCompileInputs.cache
+C:\tmp\DEMO\TextBoxStreamWriter\obj\Release\TextBoxStreamWriter.csproj.CopyComplete
+C:\tmp\DEMO\TextBoxStreamWriter\obj\Release\TextBoxStreamWriter.dll
+C:\tmp\DEMO\TextBoxStreamWriter\obj\Release\TextBoxStreamWriter.pdb

@@ -1,0 +1,17 @@
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\HiddenCbTreeView\bin\Release\CodeHammerTreeView.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\HiddenCbTreeView\bin\Release\CodeHammerTreeView.pdb
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\HiddenCbTreeView\bin\Release\Ninject.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\HiddenCbTreeView\bin\Release\Ninject.xml
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\HiddenCbTreeView\obj\Release\CodeHammerTreeView.csproj.CoreCompileInputs.cache
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\HiddenCbTreeView\obj\Release\CodeHammerTreeView.csproj.CopyComplete
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\HiddenCbTreeView\obj\Release\CodeHammerTreeView.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\HiddenCbTreeView\obj\Release\CodeHammerTreeView.pdb
+C:\tmp\DEMO\HiddenCbTreeView\bin\Release\CodeHammerTreeView.dll
+C:\tmp\DEMO\HiddenCbTreeView\bin\Release\CodeHammerTreeView.pdb
+C:\tmp\DEMO\HiddenCbTreeView\bin\Release\Ninject.dll
+C:\tmp\DEMO\HiddenCbTreeView\bin\Release\Ninject.xml
+C:\tmp\DEMO\HiddenCbTreeView\obj\Release\CodeHammerTreeView.csproj.AssemblyReference.cache
+C:\tmp\DEMO\HiddenCbTreeView\obj\Release\CodeHammerTreeView.csproj.CoreCompileInputs.cache
+C:\tmp\DEMO\HiddenCbTreeView\obj\Release\CodeHammerTreeView.csproj.CopyComplete
+C:\tmp\DEMO\HiddenCbTreeView\obj\Release\CodeHammerTreeView.dll
+C:\tmp\DEMO\HiddenCbTreeView\obj\Release\CodeHammerTreeView.pdb

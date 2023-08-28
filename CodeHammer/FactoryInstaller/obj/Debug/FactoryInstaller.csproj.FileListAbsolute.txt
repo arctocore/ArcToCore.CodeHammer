@@ -1,0 +1,9 @@
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\FactoryInstaller\bin\Debug\FactoryInstaller.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\FactoryInstaller\bin\Debug\FactoryInstaller.pdb
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\FactoryInstaller\bin\Debug\Ninject.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\FactoryInstaller\bin\Debug\Ninject.xml
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\FactoryInstaller\obj\Debug\FactoryInstaller.csproj.AssemblyReference.cache
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\FactoryInstaller\obj\Debug\FactoryInstaller.csproj.CoreCompileInputs.cache
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\FactoryInstaller\obj\Debug\FactoryInstaller.csproj.CopyComplete
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\FactoryInstaller\obj\Debug\FactoryInstaller.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\FactoryInstaller\obj\Debug\FactoryInstaller.pdb

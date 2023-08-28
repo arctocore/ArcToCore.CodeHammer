@@ -1,0 +1,17 @@
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\ComBoxReadOnly\bin\Release\ComBoxReadOnly.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\ComBoxReadOnly\bin\Release\ComBoxReadOnly.pdb
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\ComBoxReadOnly\bin\Release\Ninject.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\ComBoxReadOnly\bin\Release\Ninject.xml
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\ComBoxReadOnly\obj\Release\ComBoxReadOnly.csproj.CoreCompileInputs.cache
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\ComBoxReadOnly\obj\Release\ComBoxReadOnly.csproj.CopyComplete
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\ComBoxReadOnly\obj\Release\ComBoxReadOnly.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\ComBoxReadOnly\obj\Release\ComBoxReadOnly.pdb
+C:\tmp\DEMO\ComBoxReadOnly\bin\Release\ComBoxReadOnly.dll
+C:\tmp\DEMO\ComBoxReadOnly\bin\Release\ComBoxReadOnly.pdb
+C:\tmp\DEMO\ComBoxReadOnly\bin\Release\Ninject.dll
+C:\tmp\DEMO\ComBoxReadOnly\bin\Release\Ninject.xml
+C:\tmp\DEMO\ComBoxReadOnly\obj\Release\ComBoxReadOnly.csproj.AssemblyReference.cache
+C:\tmp\DEMO\ComBoxReadOnly\obj\Release\ComBoxReadOnly.csproj.CoreCompileInputs.cache
+C:\tmp\DEMO\ComBoxReadOnly\obj\Release\ComBoxReadOnly.csproj.CopyComplete
+C:\tmp\DEMO\ComBoxReadOnly\obj\Release\ComBoxReadOnly.dll
+C:\tmp\DEMO\ComBoxReadOnly\obj\Release\ComBoxReadOnly.pdb

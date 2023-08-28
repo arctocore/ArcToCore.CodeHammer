@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+<configuration>
+<LOG4NET>
+  <connectionStrings>
+    <add name="dbConnection" providerName="System.Data.SqlClient" connectionString="<dbsetup>" />
+  </connectionStrings>
+  <system.web>
+    <customErrors mode="Off" />
+    <compilation debug="true" />
+  </system.web>
+  <system.webServer>
+    <modules runAllManagedModulesForAllRequests="true">
+      <remove name="WebDAVModule" />
+    </modules>
+    <handlers>
+      <remove name="WebDAV" />
+      <remove name="ExtensionlessUrlHandler-Integrated-4.0" />
+      <add name="ExtensionlessUrlHandler-Integrated-4.0" path="*." verb="*" type="System.Web.Handlers.TransferRequestHandler" resourceType="Unspecified" requireAccess="Script" preCondition="integratedMode,runtimeVersionv4.0" />
+    </handlers>
+  </system.webServer>
+  <system.serviceModel>
+    <standardEndpoints>
+      <webHttpEndpoint>
+        <standardEndpoint name="" faultExceptionEnabled="true" defaultOutgoingResponseFormat="Json"  helpEnabled="true" automaticFormatSelectionEnabled="true"/>
+      </webHttpEndpoint>
+    </standardEndpoints>
+    <behaviors>
+    <serviceBehaviors>
+      <behavior name="debug">
+        <serviceDebug includeExceptionDetailInFaults="True" httpHelpPageEnabled="True"/>
+        <!-- Only expose metadata from console host -->
+        <serviceMetadata httpGetEnabled="true" />
+        <THROTTLING>
+      </behavior>
+    </serviceBehaviors>
+    </behaviors>
+    <serviceHostingEnvironment aspNetCompatibilityEnabled="true" multipleSiteBindingsEnabled="true">
+      <baseAddressPrefixFilters>
+        <!--<add prefix="http://please insert domain here/" />-->
+        <add prefix="http://localhost:8081/" />
+      </baseAddressPrefixFilters>
+    </serviceHostingEnvironment>
+  </system.serviceModel>
+</configuration>

@@ -1,0 +1,1271 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CodeHammer</name>
+    </assembly>
+    <members>
+        <member name="T:CodeHammer.CertificatDialog">
+            <summary>
+            this class Certificat
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CertificatDialog.stateLock">
+            <summary>
+            Lock around target and currentCount
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CertificatDialog.target">
+            <summary>
+            The target
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CertificatDialog.rng">
+            <summary>
+            The RNG
+            </summary>
+        </member>
+        <member name="P:CodeHammer.CertificatDialog.CertStoreLocation">
+            <summary>
+            Gets or sets the cert store location.
+            </summary>
+            <value>
+            The cert store location.
+            </value>
+        </member>
+        <member name="P:CodeHammer.CertificatDialog.CertStoreName">
+            <summary>
+            Gets or sets the name of the cert store.
+            </summary>
+            <value>
+            The name of the cert store.
+            </value>
+        </member>
+        <member name="P:CodeHammer.CertificatDialog.Certificate">
+            <summary>
+            Gets or sets the certificate.
+            </summary>
+            <value>
+            The certificate.
+            </value>
+        </member>
+        <member name="M:CodeHammer.CertificatDialog.GetCurrentThreadId">
+            <summary>
+            Gets the current thread identifier.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodeHammer.CertificatDialog.OpenThread(System.Int32,System.Boolean,System.Int32)">
+            <summary>
+            Opens the thread.
+            </summary>
+            <param name="desiredAccess">The desired access.</param>
+            <param name="inheritHandle">if set to <c>true</c> [inherit handle].</param>
+            <param name="threadId">The thread identifier.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeHammer.CertificatDialog.TerminateThread(System.IntPtr,System.Int32)">
+            <summary>
+            Terminates the thread.
+            </summary>
+            <param name="hThread">The h thread.</param>
+            <param name="exitCode">The exit code.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeHammer.CertificatDialog.CloseHandle(System.IntPtr)">
+            <summary>
+            Closes the handle.
+            </summary>
+            <param name="handle">The handle.</param>
+            <returns></returns>
+        </member>
+        <member name="P:CodeHammer.CertificatDialog.CertProperties">
+            <summary>
+            Gets or sets the cert properties.
+            </summary>
+            <value>
+            The cert properties.
+            </value>
+        </member>
+        <member name="F:CodeHammer.CertificatDialog.backgroundWorkerRunning">
+            <summary>
+            The background worker running
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CertificatDialog.backgroundThreadId">
+            <summary>
+            The background thread identifier
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CertificatDialog.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHammer.CertificatDialog"/> class.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CertificatDialog.LoadStoreDropdownLists">
+            <summary>
+            Loads the store dropdown lists.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CertificatDialog.LoadSettings">
+            <summary>
+            Loads the settings.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CertificatDialog.LoadDefaultSettings">
+            <summary>
+            Loads the default settings.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CertificatDialog.GetSetting(System.Xml.Linq.XDocument,System.String,System.String)">
+            <summary>
+            Gets the setting.
+            </summary>
+            <param name="doc">The document.</param>
+            <param name="elementName">Name of the element.</param>
+            <param name="defaultValue">The default value.</param>
+            <returns></returns>
+        </member>
+        <member name="M:CodeHammer.CertificatDialog.SaveSettings">
+            <summary>
+            Saves the settings.
+            </summary>
+        </member>
+        <member name="P:CodeHammer.CertificatDialog.SettingsFile">
+            <summary>
+            Gets the settings file.
+            </summary>
+            <value>
+            The settings file.
+            </value>
+        </member>
+        <member name="M:CodeHammer.CertificatDialog.ValidateCertProperties(System.String@)">
+            <summary>
+            Validates the cert properties.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodeHammer.CertificatDialog.GenerateCert">
+            <summary>
+            Generates the cert.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:CodeHammer.CertificatDialog.BackroundWorkerFinished">
+            <summary>
+            Backrounds the worker finished.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CertificatDialog.GenerateCERT">
+            <summary>
+            Generates the cert.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CertificatDialog.saveAsPfxButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the saveAsPfxButton control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CertificatDialog.saveStoreButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the saveStoreButton control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="F:CodeHammer.CertificatDialog.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CertificatDialog.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:CodeHammer.CertificatDialog.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:CodeHammer.GenerateForm">
+            <summary>
+            this class GenerateForm
+            </summary>
+        </member>
+        <member name="F:CodeHammer.GenerateForm.container">
+            <summary>
+            The container
+            </summary>
+        </member>
+        <member name="F:CodeHammer.GenerateForm.ioManagerContract">
+            <summary>
+            The io manager contract
+            </summary>
+        </member>
+        <member name="F:CodeHammer.GenerateForm.fileType">
+            <summary>
+            The fileType
+            </summary>
+        </member>
+        <member name="F:CodeHammer.GenerateForm.fileName">
+            <summary>
+            The file name
+            </summary>
+        </member>
+        <member name="F:CodeHammer.GenerateForm.childFormNumber">
+            <summary>
+            The child form number
+            </summary>
+        </member>
+        <member name="M:CodeHammer.GenerateForm.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHammer.GenerateForm"/> class.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.GenerateForm.ConfigureContainer">
+            <summary>
+            Configures the container.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.GenerateForm.ShowNewForm(System.Object,System.EventArgs)">
+            <summary>
+            Shows the new form.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.GenerateForm.OpenFile(System.Object,System.EventArgs)">
+            <summary>
+            Opens the file.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.GenerateForm.SaveAsToolStripMenuItem_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the SaveAsToolStripMenuItem control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.GenerateForm.ExitToolsStripMenuItem_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the ExitToolsStripMenuItem control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.GenerateForm.SetCodeEditor(System.Text.StringBuilder,System.Boolean,System.String,System.String,System.String,System.String)">
+            <summary>
+            Sets the code editor.
+            </summary>
+            <param name="dgmlCode">The DGML code.</param>
+            <param name="onlyDataContract">if set to <c>true</c> [only data contract].</param>
+            <param name="filetype">The filetype.</param>
+            <param name="className">Name of the class.</param>
+            <param name="text">The text.</param>
+            <param name="bgcolor">The bgcolor.</param>
+        </member>
+        <member name="M:CodeHammer.GenerateForm.GenerateForm_Load(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Load event of the GenerateForm control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.GenerateForm.copyCodeToolStripButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the copyCodeToolStripButton control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.GenerateForm.exportDtoToolStripButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the exportDtoToolStripButton control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="F:CodeHammer.GenerateForm.components">
+            <summary>
+            Required designer variable.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.GenerateForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        </member>
+        <member name="M:CodeHammer.GenerateForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify
+            the contents of this method with the code editor.
+            </summary>
+        </member>
+        <member name="T:CodeHammer.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:CodeHammer.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:CodeHammer.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:CodeHammer.BaseConfiguration.Key">
+            <summary>
+            The key will be stored here
+            </summary>
+        </member>
+        <member name="P:CodeHammer.BaseConfiguration.MachineCode">
+            <summary>
+            
+            </summary>
+            <value></value>
+            <returns></returns>
+            <remarks></remarks>
+        </member>
+        <member name="P:CodeHammer.Generate.secretPhase">
+            <summary>
+            If the key is to be encrypted, enter a password here.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.Generate.doKey(System.Int32)">
+            <summary>
+            This function will generate a key.
+            </summary>
+            <param name="timeLeft">For instance, 30 days.</param>
+        </member>
+        <member name="M:CodeHammer.Generate.doKey(System.Int32,System.Int32)">
+            <summary>
+            
+            </summary>
+            <param name="timeLeft">For instance, 30 days</param>
+            <param name="useMachineCode">Lock a serial key to a specific machine, given its "machine code". Should be 5 digits long.</param>
+            <returns></returns>
+            <remarks></remarks>
+        </member>
+        <member name="M:CodeHammer.Generate.doKey(System.Int32,System.DateTime,System.Int32)">
+            <summary>
+            This function will generate a key. You may also change the creation date.
+            </summary>
+            <param name="timeLeft">For instance, 30 days.</param>
+            <param name="creationDate">Change the creation date of a key.</param>
+            <param name="useMachineCode">Lock a serial key to a specific machine, given its "machine code". Should be 5 digits long.</param>
+        </member>
+        <member name="P:CodeHammer.Validate.Key">
+            <summary>
+            Enter a key here before validating.
+            </summary>
+        </member>
+        <member name="P:CodeHammer.Validate.secretPhase">
+            <summary>
+            If the key has been encrypted, when it was generated, please set the same secretPhase here.
+            </summary>
+        </member>
+        <member name="P:CodeHammer.Validate.IsValid">
+            <summary>
+            Checks whether the key has been modified or not. If the key has been modified - returns false; if the key has not been modified - returns true.
+            </summary>
+        </member>
+        <member name="P:CodeHammer.Validate.IsExpired">
+            <summary>
+            If the key has expired - returns true; if the key has not expired - returns false.
+            </summary>
+        </member>
+        <member name="P:CodeHammer.Validate.CreationDate">
+            <summary>
+            Returns the creation date of the key.
+            </summary>
+        </member>
+        <member name="P:CodeHammer.Validate.DaysLeft">
+            <summary>
+            Returns the amount of days the key will be valid.
+            </summary>
+        </member>
+        <member name="P:CodeHammer.Validate.SetTime">
+            <summary>
+            Returns the actual amount of days that were set when the key was generated.
+            </summary>
+        </member>
+        <member name="P:CodeHammer.Validate.ExpireDate">
+            <summary>
+            Returns the date when the key is to be expired.
+            </summary>
+        </member>
+        <member name="P:CodeHammer.Validate.Features">
+            <summary>
+            Returns all 8 features in a boolean array
+            </summary>
+        </member>
+        <member name="P:CodeHammer.Validate.IsOnRightMachine">
+            <summary>
+            If the current machine's machine code is equal to the one that this key is designed for, return true.
+            </summary>
+            <value></value>
+            <returns></returns>
+            <remarks></remarks>
+        </member>
+        <member name="T:CodeHammer.CodeHammerForm">
+            <summary>
+            Form used to collect the connection information for the code we're going to generate.
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.fileType">
+            <summary>
+            The fileType
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.buttonToolTip">
+            <summary>
+            The button tool tip
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.onlyDTO">
+            <summary>
+            The only dto
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.onlyDataContract">
+            <summary>
+            The only data contract
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.bgColor">
+            <summary>
+            The bg color
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.CurrentNodeMatches">
+            <summary>
+            The current node matches
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.LastNodeIndex">
+            <summary>
+            The last node index
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.LastSearchText">
+            <summary>
+            The last search text
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.strGeneratorMessage">
+            <summary>
+            The string generator message
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.strCastleWindsor">
+            <summary>
+            The string castle windsor
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.strDataAccess">
+            <summary>
+            the string data access
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.strFluentNHibernate">
+            <summary>
+            The string fluent n hibernate
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.strUrl">
+            <summary>
+            The string URL
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.sln">
+            <summary>
+            The SLN
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.sql">
+            <summary>
+            The SQL
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.container">
+            <summary>
+            The container
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.stateLock">
+            <summary>
+            Lock around target and currentCount
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.authenticationGroupBox">
+            <summary>
+            The authentication group box
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.checkAllToolStripMenuItem">
+            <summary>
+            The check all tool strip menu item
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.collapseAllToolStripMenuItem">
+            <summary>
+            The collapse all tool strip menu item
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.components">
+            <summary>
+            The components
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.connectButton">
+            <summary>
+            The connect button
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.crudTabPage">
+            <summary>
+            The crud tab page
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.databaseComboBox">
+            <summary>
+            The database ComboBox
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.databaseLabel">
+            <summary>
+            The database label
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.expandAllToolStripMenuItem">
+            <summary>
+            The expand all tool strip menu item
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.exportPath">
+            <summary>
+            The export path
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.loginNameLabel">
+            <summary>
+            The login name label
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.loginNameTextBox">
+            <summary>
+            The login name text box
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.passwordLabel">
+            <summary>
+            The password label
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.passwordTextBox">
+            <summary>
+            The password text box
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.ResetButton">
+            <summary>
+            The reset button
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.resultDataOptions">
+            <summary>
+            The result data options
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.reverseEnginnerSelectSP">
+            <summary>
+            The reverse enginner select SP
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.rng">
+            <summary>
+            The RNG
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.SelectAllButton">
+            <summary>
+            The select all button
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.selectTables">
+            <summary>
+            The select tables
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.serverLabel">
+            <summary>
+            The server label
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.ShowTablesButton">
+            <summary>
+            The show tables button
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.tableMenuStrip">
+            <summary>
+            The table menu strip
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.target">
+            <summary>
+            The target
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.uncheckAllToolStripMenuItem">
+            <summary>
+            The uncheck all tool strip menu item
+            </summary>
+        </member>
+        <member name="T:CodeHammer.CodeHammerForm.StringParameterDelegate">
+             <summary>
+            
+             </summary>
+             <param name="value">The value.</param>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.codeHammerDataUtilContract">
+            <summary>
+            The code hammer data utility contract
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.ioManagerContract">
+            <summary>
+            The io manager contract
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.logFuncContract">
+            <summary>
+            The log function contract
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.indentTextWriterFuncContract">
+            <summary>
+            The indent text writer function contract
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.funcTypeFactoryContract">
+            <summary>
+            The function type factory contract
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.codeHammerGeneratorContract">
+            <summary>
+            The code hammer generator contract
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.dbDataSupportAdapterContract">
+            <summary>
+            The database data support adapter contract
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.dgmlFuncContract">
+            <summary>
+            The DGML function contract
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.helpManagerContract">
+            <summary>
+            The help manager contract
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.projectManagerContract">
+            <summary>
+            The project manager contract
+            </summary>
+        </member>
+        <member name="F:CodeHammer.CodeHammerForm.kernelContainer">
+            <summary>
+            The container
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.ConfigureContainer">
+            <summary>
+            Configures the container.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:CodeHammer.CodeHammerForm" /> class.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.Dispose(System.Boolean)">
+            <summary>
+            Clean up any resources being used.
+            </summary>
+            <param name="disposing">
+            true to release both managed and unmanaged resources; false to release only unmanaged resources.
+            </param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.sendFeedbackButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the sendFeedbackButton control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.generateDependencyDtoToolStripMenuItem2_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the generateDependencyDtoToolStripMenuItem2 control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.generateDtoToolStripMenuItem1_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the generateDtoToolStripMenuItem1 control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.blackBackgroundToolStripMenuItem1_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the blackBackgroundToolStripMenuItem1 control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.checkAllToolStripMenuItem_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the checkAllToolStripMenuItem control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.collapseAllToolStripMenuItem_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the collapseAllToolStripMenuItem control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.databaseComboBox_KeyPress(System.Object,System.Windows.Forms.KeyPressEventArgs)">
+            <summary>
+            Handles the KeyPress event of the databaseComboBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.Forms.KeyPressEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.DatabaseTextBox_TextChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the TextChanged event of the DatabaseTextBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">
+            The <see cref="T:System.EventArgs" /> instance containing the event data.
+            </param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.expandAllToolStripMenuItem_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the expandAllToolStripMenuItem control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.GenerateButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the GenerateButton control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">
+            The <see cref="T:System.EventArgs" /> instance containing the event data.
+            </param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.gridCheckBox_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            gridCheckBox_CheckedChanged
+            </summary>
+            <param name="sender"></param>
+            <param name="e"></param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.InitializeComponent">
+            <summary>
+            Required method for Designer support - do not modify the contents of this method with
+            the code editor.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.languageComboBox_KeyPress(System.Object,System.Windows.Forms.KeyPressEventArgs)">
+            <summary>
+            Handles the KeyPress event of the languageComboBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">
+            The <see cref="T:System.Windows.Forms.KeyPressEventArgs" /> instance containing the event data.
+            </param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.LoginNameTextBox_TextChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the DatabaseCounted event of the Generator control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">
+            The <see cref="!:DataTierGenerator.CodeHammerCountEventArgs" /> instance containing the
+            event data.
+            </param>
+            <summary>
+            Handles the TextChanged event of the LoginNameTextBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">
+            The <see cref="T:System.EventArgs" /> instance containing the event data.
+            </param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.mixedCheckBoxesTreeView1_AfterCheck(System.Object,System.Windows.Forms.TreeViewEventArgs)">
+            <summary>
+            Handles the AfterCheck event of the mixedCheckBoxesTreeView1 control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">
+            The <see cref="T:System.Windows.Forms.TreeViewEventArgs" /> instance containing the event data.
+            </param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.namespaceTextBox_TextChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the TextChanged event of the namespaceTextBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">
+            The <see cref="T:System.EventArgs" /> instance containing the event data.
+            </param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.ResetButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the ResetButton control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">
+            The <see cref="T:System.EventArgs" /> instance containing the event data.
+            </param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.SelectAllButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the SelectAllButton control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">
+            The <see cref="T:System.EventArgs" /> instance containing the event data.
+            </param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.PrintRecursive(System.Boolean,System.Boolean,System.Windows.Forms.TreeNode)">
+            <summary>
+            Prints the recursive.
+            </summary>
+            <param name="noLog">if set to <c>true</c> [no log].</param>
+            <param name="nocheck">if set to <c>true</c> [nocheck].</param>
+            <param name="treeNode">The tree node.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.CheckAll">
+            <summary>
+            Checks all.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.CallRecursive(System.Boolean,System.Boolean,System.Boolean,System.Boolean@,System.Windows.Forms.TreeView)">
+            <summary>
+            Calls the recursive.
+            </summary>
+            <param name="noLog">if set to <c>true</c> [no log].</param>
+            <param name="nocheck">if set to <c>true</c> [nocheck].</param>
+            <param name="stopCheck">if set to <c>true</c> [stop check].</param>
+            <param name="treeView">The tree view.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.serverComboBox_KeyPress(System.Object,System.Windows.Forms.KeyPressEventArgs)">
+            <summary>
+            Handles the KeyPress event of the serverComboBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.Forms.KeyPressEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.serverComboBox_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the SelectedIndexChanged event of the serverComboBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.ServerTextBox_TextChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the TextChanged event of the ServerTextBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">
+            The <see cref="T:System.EventArgs" /> instance containing the event data.
+            </param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.SetupDatabaseConnection(System.String@)">
+            <summary>
+            Setups the database connection.
+            </summary>
+            <param name="connectionString">The connection string.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.ShowTablesButton_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the ShowTablesButton control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.SqlServerAuthenticationRadioButton_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the CheckedChanged event of the SqlServerAuthenticationRadioButton control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">
+            The <see cref="T:System.EventArgs" /> instance containing the event data.
+            </param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.StartThread(System.Object,System.EventArgs)">
+            <summary>
+            Starts the thread.
+            </summary>
+            <param name="sender">The sender.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.tableMenuStrip_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the tableMenuStrip control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.tableMenuStrip_Opening(System.Object,System.ComponentModel.CancelEventArgs)">
+            <summary>
+            Handles the Opening event of the tableMenuStrip control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">
+            The <see cref="T:System.ComponentModel.CancelEventArgs" /> instance containing the event data.
+            </param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.uncheckAllToolStripMenuItem_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the uncheckAllToolStripMenuItem control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs" /> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.whiteBackgroundToolStripMenuItem_Click(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Click event of the whiteBackgroundToolStripMenuItem control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.WindowsAuthenticationRadioButton_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the CheckedChanged event of the WindowsAuthenticationRadioButton control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">
+            The <see cref="T:System.EventArgs" /> instance containing the event data.
+            </param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.castleWcfRadioButton_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the CheckedChanged event of the castleWcfRadioButton control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.unityRadioButton_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the CheckedChanged event of the unityRadioButton control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.ninjectWcfRadioButton_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the CheckedChanged event of the ninjectWcfRadioButton control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.outputTextBox_LinkClicked(System.Object,System.Windows.Forms.LinkClickedEventArgs)">
+            <summary>
+            Handles the LinkClicked event of the outputTextBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.Forms.LinkClickedEventArgs" /> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.CodeHammerForm_Load(System.Object,System.EventArgs)">
+            <summary>
+            Handles the Load event of the CodeHammerForm control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.fluentNHibernateRadioButton_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the CheckedChanged event of the fluentNHibernateRadioButton control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.wcfCallComboBox_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the SelectedIndexChanged event of the wcfCallComboBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.wcfSecurityComboBox_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the SelectedIndexChanged event of the wcfSecurityComboBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.unitTestComboBox_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the SelectedIndexChanged event of the unitTestComboBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.loggingComboBox_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the SelectedIndexChanged event of the loggingComboBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.streamTypeComboBox_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the SelectedIndexChanged event of the streamTypeComboBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.wcfPerformanceComboBox_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the SelectedIndexChanged event of the wcfPerformanceComboBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.crudCheckBox_CheckedChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the CheckedChanged event of the crudCheckBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.outputTextBox_TextChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the TextChanged event of the outputTextBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.iocComboBox_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the SelectedIndexChanged event of the iocComboBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.loginLabel_LinkClicked(System.Object,System.Windows.Forms.LinkLabelLinkClickedEventArgs)">
+            <summary>
+            Handles the LinkClicked event of the loginLabel control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.Windows.Forms.LinkLabelLinkClickedEventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.providerComboBox_SelectedIndexChanged(System.Object,System.EventArgs)">
+            <summary>
+            Handles the SelectedIndexChanged event of the providerComboBox control.
+            </summary>
+            <param name="sender">The source of the event.</param>
+            <param name="e">The <see cref="T:System.EventArgs"/> instance containing the event data.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.GenerateTableDependencyDgml">
+            <summary>
+            Generates the table dependency DGML.
+            </summary>
+            <exception cref="T:System.NotImplementedException"></exception>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.GenerateDataContract">
+            <summary>
+            Generates the data contract.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.GenerateDTO">
+            <summary>
+            Generates the dto.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.CleanLogReader">
+            <summary>
+            Cleans the log reader.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.EnableControls(System.Boolean)">
+            <summary>
+            Enables the controls.
+            </summary>
+            <param name="state">if set to <c>true</c> [state].</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.ConnectToDbServer">
+            <summary>
+            Updates the count.
+            </summary>
+            <summary>
+            Connects to database server.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.NhibernateCheckForKeyRelations(System.String)">
+            <summary>
+            Nhibernates the check for key relations.
+            </summary>
+            <param name="tableName">Name of the table.</param>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.GenerateCodeHammer">
+            <summary>
+            Generates the code hammer.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.ResetList">
+            <summary>
+            Resets the list.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.SyntaxHighlightFromRegex">
+            <summary>
+            Syntaxes the highlight from regex.
+            </summary>
+        </member>
+        <member name="M:CodeHammer.CodeHammerForm.MatchRExpression(System.Windows.Forms.RichTextBox,System.String,System.Drawing.Color)">
+            <summary>
+            Matches the r expression.
+            </summary>
+            <param name="textBox">The text box.</param>
+            <param name="regexpression">The regexpression.</param>
+            <param name="color">The color.</param>
+        </member>
+        <member name="P:SyntaxHighlighter.SyntaxRichTextBox.Settings">
+            <summary>
+            The settings.
+            </summary>
+        </member>
+        <member name="M:SyntaxHighlighter.SyntaxRichTextBox.WndProc(System.Windows.Forms.Message@)">
+            <summary>
+            WndProc
+            </summary>
+            <param name="m"></param>
+        </member>
+        <member name="M:SyntaxHighlighter.SyntaxRichTextBox.OnTextChanged(System.EventArgs)">
+            <summary>
+            OnTextChanged
+            </summary>
+            <param name="e"></param>
+        </member>
+        <member name="M:SyntaxHighlighter.SyntaxRichTextBox.ProcessLine">
+            <summary>
+            Process a line.
+            </summary>
+        </member>
+        <member name="M:SyntaxHighlighter.SyntaxRichTextBox.ProcessRegex(System.String,System.Drawing.Color)">
+            <summary>
+            Process a regular expression.
+            </summary>
+            <param name="strRegex">The regular expression.</param>
+            <param name="color">The color.</param>
+        </member>
+        <member name="M:SyntaxHighlighter.SyntaxRichTextBox.CompileKeywords">
+            <summary>
+            Compiles the keywords as a regular expression.
+            </summary>
+        </member>
+        <member name="T:SyntaxHighlighter.SyntaxList">
+            <summary>
+            Class to store syntax objects in.
+            </summary>
+        </member>
+        <member name="T:SyntaxHighlighter.SyntaxSettings">
+            <summary>
+            Settings for the keywords and colors.
+            </summary>
+        </member>
+        <member name="P:SyntaxHighlighter.SyntaxSettings.Keywords">
+            <summary>
+            A list containing all keywords.
+            </summary>
+        </member>
+        <member name="P:SyntaxHighlighter.SyntaxSettings.KeywordColor">
+            <summary>
+            The color of keywords.
+            </summary>
+        </member>
+        <member name="P:SyntaxHighlighter.SyntaxSettings.Comment">
+            <summary>
+            A string containing the comment identifier.
+            </summary>
+        </member>
+        <member name="P:SyntaxHighlighter.SyntaxSettings.CommentTags">
+            <summary>
+            Gets or sets the comment tags.
+            </summary>
+            <value>
+            The comment tags.
+            </value>
+        </member>
+        <member name="P:SyntaxHighlighter.SyntaxSettings.CommentColor">
+            <summary>
+            The color of comments.
+            </summary>
+        </member>
+        <member name="P:SyntaxHighlighter.SyntaxSettings.TagsColor">
+            <summary>
+            Gets or sets the color of the tags.
+            </summary>
+            <value>
+            The color of the tags.
+            </value>
+        </member>
+        <member name="P:SyntaxHighlighter.SyntaxSettings.EnableComments">
+            <summary>
+            Enables processing of comments if set to true.
+            </summary>
+        </member>
+        <member name="P:SyntaxHighlighter.SyntaxSettings.EnableIntegers">
+            <summary>
+            Enables processing of integers if set to true.
+            </summary>
+        </member>
+        <member name="P:SyntaxHighlighter.SyntaxSettings.EnableStrings">
+            <summary>
+            Enables processing of strings if set to true.
+            </summary>
+        </member>
+        <member name="P:SyntaxHighlighter.SyntaxSettings.StringColor">
+            <summary>
+            The color of strings.
+            </summary>
+        </member>
+        <member name="P:SyntaxHighlighter.SyntaxSettings.IntegerColor">
+            <summary>
+            The color of integers.
+            </summary>
+        </member>
+    </members>
+</doc>

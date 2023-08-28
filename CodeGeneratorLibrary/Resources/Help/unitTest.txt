@@ -1,0 +1,7 @@
+﻿Unit testing is a software testing method by which individual units of 
+code, sets of one or more program modules together with 
+associated control data, usage procedures, and operating procedures, are 
+tested to determine whether they are ready for use.
+
+The goal of unit testing is to isolate each part of the program and show 
+that the individual parts are correct.

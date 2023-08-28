@@ -1,0 +1,188 @@
+﻿Oracle
+
+
+select distinct table_name, constraint_name, column_name, r_table_name, position, constraint_type 
+from (
+    SELECT uc.table_name, 
+    uc.constraint_name, 
+    cols.column_name, 
+    (select table_name from user_constraints where constraint_name = uc.r_constraint_name) 
+        r_table_name,
+    (select column_name from user_cons_columns where constraint_name = uc.r_constraint_name and position = cols.position) 
+        r_column_name,
+    cols.position,
+    uc.constraint_type
+    FROM user_constraints uc
+    inner join user_cons_columns cols on uc.constraint_name = cols.constraint_name 
+    where constraint_type != 'C'
+) 
+start with table_name = 'MY_TABLE_NAME' and column_name = 'MY_COLUMN_NAME'  
+connect by nocycle 
+prior table_name = r_table_name 
+and prior column_name = r_column_name;
+________________________
+
+REM #######################################################################
+
+CLEAR BREAK
+CLEAR COL
+SET LINES 200
+SET PAGES 54
+SET NEWPAGE 0
+SET WRAP OFF
+SET VERIFY OFF
+SET FEEDBACK OFF
+
+break on table_name skip 2 on constraint_name on r_table_name skip 1
+
+column CHILDCOL format a60 head 'CHILD COLUMN'
+column PARENTCOL format a60 head 'PARENT COLUMN'
+column constraint_name format a30 head 'FK CONSTRAINT NAME'
+column delete_rule format a15
+column bt noprint
+column bo noprint
+
+TTITLE LEFT _DATE CENTER 'FOREIGN KEY RELATIONSHIPS ON &new_prompt' RIGHT 'PAGE:'FORMAT 999 SQL.PNO SKIP 2
+
+SPOOL C:\SQLRPTS\FKeys_&new_prompt
+ACCEPT OWNER_NAME PROMPT 'Enter Table Owner (or blank for all): '
+ACCEPT PARENT_TABLE_NAME PROMPT 'Enter Parent Table or leave blank for all: '
+ACCEPT CHILD_TABLE_NAME PROMPT 'Enter Child Table or leave blank for all: '
+
+  select b.owner || '.' || b.table_name || '.' || b.column_name CHILDCOL,
+         b.position,
+         c.owner || '.' || c.table_name || '.' || c.column_name PARENTCOL,
+         a.constraint_name,
+         a.delete_rule,
+         b.table_name bt,
+         b.owner bo
+    from all_cons_columns b,
+         all_cons_columns c,
+         all_constraints a
+   where b.constraint_name = a.constraint_name
+     and a.owner           = b.owner
+     and b.position        = c.position
+     and c.constraint_name = a.r_constraint_name
+     and c.owner           = a.r_owner
+     and a.constraint_type = 'R'
+     and c.owner      like case when upper('&OWNER_NAME') is null then '%'
+                                else upper('&OWNER_NAME') end
+     and c.table_name like case when upper('&PARENT_TABLE_NAME') is null then '%'
+                                else upper('&PARENT_TABLE_NAME') end
+     and b.table_name like case when upper('&CHILD_TABLE_NAME') is null then '%'
+                                else upper('&CHILD_TABLE_NAME') end
+order by 7,6,4,2
+/
+SPOOL OFF
+TTITLE OFF
+SET FEEDBACK ON
+SET VERIFY ON
+CLEAR BREAK
+CLEAR COL
+SET PAGES 24
+SET LINES 100
+SET NEWPAGE 1
+UNDEF OWNER
+___________________________________________________________________________________________________________
+
+
+
+
+
+
+
+SELECT        INFORMATION_SCHEMA.COLUMNS.TABLE_NAME, INFORMATION_SCHEMA.COLUMNS.COLUMN_NAME, INFORMATION_SCHEMA.COLUMNS.IS_NULLABLE, 
+                         INFORMATION_SCHEMA.COLUMNS.DATA_TYPE, INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_TYPE, 
+                         INFORMATION_SCHEMA.PARAMETERS.PARAMETER_NAME, sys.sysobjects.name, INFORMATION_SCHEMA.PARAMETERS.SPECIFIC_NAME
+FROM            INFORMATION_SCHEMA.COLUMNS INNER JOIN
+                         INFORMATION_SCHEMA.TABLES ON INFORMATION_SCHEMA.COLUMNS.TABLE_NAME = INFORMATION_SCHEMA.TABLES.TABLE_NAME INNER JOIN
+                         sys.sysobjects ON INFORMATION_SCHEMA.COLUMNS.TABLE_NAME = sys.sysobjects.name LEFT OUTER JOIN
+                         INFORMATION_SCHEMA.KEY_COLUMN_USAGE ON 
+                         INFORMATION_SCHEMA.KEY_COLUMN_USAGE.COLUMN_NAME = INFORMATION_SCHEMA.COLUMNS.COLUMN_NAME AND 
+                         INFORMATION_SCHEMA.KEY_COLUMN_USAGE.TABLE_NAME = INFORMATION_SCHEMA.COLUMNS.TABLE_NAME AND 
+                         INFORMATION_SCHEMA.KEY_COLUMN_USAGE.TABLE_CATALOG = INFORMATION_SCHEMA.COLUMNS.TABLE_CATALOG AND 
+                         INFORMATION_SCHEMA.KEY_COLUMN_USAGE.ORDINAL_POSITION = INFORMATION_SCHEMA.COLUMNS.ORDINAL_POSITION LEFT OUTER JOIN
+                         INFORMATION_SCHEMA.TABLE_CONSTRAINTS ON 
+                         INFORMATION_SCHEMA.TABLE_CONSTRAINTS.TABLE_NAME = INFORMATION_SCHEMA.KEY_COLUMN_USAGE.TABLE_NAME AND 
+                         INFORMATION_SCHEMA.TABLE_CONSTRAINTS.CONSTRAINT_NAME = INFORMATION_SCHEMA.KEY_COLUMN_USAGE.CONSTRAINT_NAME CROSS JOIN
+                         INFORMATION_SCHEMA.PARAMETERS
+WHERE        (sys.sysobjects.id IN
+                             (SELECT        sd.depid
+                               FROM            sys.sysobjects AS so INNER JOIN
+                                                         sys.sysdepends AS sd ON so.id = sd.id
+                               WHERE        (so.name = 'ActivationActivityTargetGroups_GetByTGID') AND 
+                                                         (INFORMATION_SCHEMA.PARAMETERS.SPECIFIC_NAME = 'ActivationActivityTargetGroups_GetByTGID')))
+ORDER BY INFORMATION_SCHEMA.COLUMNS.TABLE_NAME
+
+
+
+
+
+
+
+
+
+Notes:
+
+SqlDataReader:
+
+Holds the connection open until you are finished (don't forget to close it!).
+Can typically only be iterated over once
+Is not as useful for updating back to the database
+On the other hand, it:
+
+Only has one record in memory at a time rather than an entire result set (this can be huge)
+Is about as fast as it you can get for that one iteration
+Allows you start processing results sooner
+
+------------------------------------------------------------------------------------------------
+SqlDataAdapter/DataSet
+Lets you close the connection as soon it's done loading data, and may even close it for you automatically
+All of the results are available in memory
+You can iterate over it as many times as you need, or even look up a specific record by index
+Has some built-in faculties for updating back to the database
+At the cost of:
+
+Much higher memory use
+You wait until all the data is loaded before using any of it
+So really it depends on what you're doing, but I tend to prefer a DataReader until I need something that's only supported by a dataset. 
+SqlDataReader is perfect for the common data access case of binding to a read-only grid.
+
+
+Example for populate treeview from db output:
+private void PopulateTreeView()
+{
+    treeView1.Nodes.Clear();
+
+    using (var conn = new SqlCeConnection("Data Source=" + connString))
+    using (var cmd = conn.CreateCommand())
+    {
+        cmd.CommandType = CommandType.Text;
+        cmd.CommandText = @"SELECT T.TABLE_NAME, C.COLUMN_NAME
+                            FROM INFORMATION_SCHEMA.TABLES AS T INNER JOIN
+                            Information_Schema.Columns AS C ON T.TABLE_NAME = C.TABLE_NAME
+                            WHERE T.TABLE_TYPE IN('BASE_TABLE', 'BASE TABLE', 'TABLE')
+                            ORDER BY T.TABLE_NAME, C.ORDINAL_POSITION";
+        conn.Open();
+        cmd.Connection = conn;
+
+        using (var reader = cmd.ExecuteReader())
+        {
+            string lastTable = null;
+            TreeNode tableNode = null;
+            while (reader.Read())
+            {
+                if (lastTable != reader.GetString(0))
+                {
+                    lastTable = reader.GetString(0);
+                    tableNode = new TreeNode(lastTable);
+                    treeView1.Nodes.Add(tableNode);
+                }
+                tableNode.Nodes.Add(new TreeNode(reader.GetString(1)));
+            }
+        }
+    }
+}
+
+
+Problem with generating sql to many ","

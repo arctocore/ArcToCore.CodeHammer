@@ -1,0 +1,281 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{169CE81C-0CDD-43F5-A1BB-F2D7B5DAEB5D}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>CodeHammer.Framework</RootNamespace>
+    <AssemblyName>CodeHammer.Framework</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\CodeHammer\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>false</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>ArcToCore.pfx</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <DelaySign>true</DelaySign>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Ninject, Version=3.3.6.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\CodeHammer\packages\Ninject.3.3.6\lib\net45\Ninject.dll</HintPath>
+    </Reference>
+    <Reference Include="System">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Configuration">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Core">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.Compression.FileSystem">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.IO.Log">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Net">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel.Channels">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel.Routing">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.ServiceModel.Web">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Routing">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Web.Services">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml.Linq">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Data">
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Xml">
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FunctionArea\Crypto\CertProperties.cs" />
+    <Compile Include="FunctionArea\Crypto\CryptContext.cs" />
+    <Compile Include="FunctionArea\Crypto\CryptKey.cs" />
+    <Compile Include="FunctionArea\Crypto\DisposableObject.cs" />
+    <Compile Include="FunctionArea\Crypto\KeyExchangeKey.cs" />
+    <Compile Include="FunctionArea\Crypto\KeyType.cs" />
+    <Compile Include="FunctionArea\Crypto\SignatureKey.cs" />
+    <Compile Include="FunctionArea\Crypto\Win32ErrorHelper.cs" />
+    <Compile Include="FunctionArea\Crypto\Win32Native.cs" />
+    <Compile Include="FunctionArea\DataUtil\CodeHammerDataUtilContract.cs" />
+    <Compile Include="FunctionArea\DataUtil\DbDataSupportAdapter.cs" />
+    <Compile Include="FunctionArea\DataUtil\DbDataSupportAdapterContract.cs" />
+    <Compile Include="FunctionArea\Dgml\DgmlFunc.cs" />
+    <Compile Include="FunctionArea\Dgml\DgmlFuncContract.cs" />
+    <Compile Include="FunctionArea\Generators\BusinessGenerator\CodeHammerBusinessLogicGenerator.cs" />
+    <Compile Include="FunctionArea\Generators\BusinessGenerator\CodeHammerBusinessLogicGeneratorContract.cs" />
+    <Compile Include="FunctionArea\Generators\CodeHammerGenerator.cs" />
+    <Compile Include="FunctionArea\Generators\CodeHammerGeneratorContract.cs" />
+    <Compile Include="FunctionArea\Generators\DataGenerator\CodeHammerDataAccessLayerGenerator.cs" />
+    <Compile Include="FunctionArea\Generators\DataGenerator\CodeHammerDataAccessLayerGeneratorContract.cs" />
+    <Compile Include="FunctionArea\DataUtil\CodeHammerDataUtil.cs" />
+    <Compile Include="FunctionArea\Generators\DtoGenerator\CodeHammerDTOGenerator.cs" />
+    <Compile Include="FunctionArea\Generators\DtoGenerator\CodeHammerDTOGeneratorContract.cs" />
+    <Compile Include="FunctionArea\FileIO\HelpManager.cs" />
+    <Compile Include="FunctionArea\FileIO\HelpManagerContract.cs" />
+    <Compile Include="FunctionArea\FileIO\IOManager.cs" />
+    <Compile Include="FunctionArea\FileIO\IOManagerContract.cs" />
+    <Compile Include="FunctionArea\Generators\FluentNHibernateGenerator\FluentNHibernateGenerator.cs" />
+    <Compile Include="FunctionArea\Generators\FluentNHibernateGenerator\FluentNHibernateGeneratorContract.cs" />
+    <Compile Include="FunctionArea\Generators\LoggingGenerator\CodeHammerLoggingGenerator.cs" />
+    <Compile Include="FunctionArea\Generators\LoggingGenerator\CodeHammerLoggingGeneratorContract.cs" />
+    <Compile Include="FunctionArea\IndentTextWriter\IndentTextWriterFunc.cs" />
+    <Compile Include="FunctionArea\IndentTextWriter\IndentTextWriterFuncContract.cs" />
+    <Compile Include="FunctionArea\Log\LogFunc.cs" />
+    <Compile Include="FunctionArea\Log\LogFuncContract.cs" />
+    <Compile Include="FunctionArea\ProjectManager\ProjectManager.cs" />
+    <Compile Include="FunctionArea\ProjectManager\ProjectManagerContract.cs" />
+    <Compile Include="FunctionArea\Generators\ServiceLibraryGenerator\CodeHammerServiceLibraryGeneratorContract.cs" />
+    <Compile Include="FunctionArea\Generators\SqlGenerator\CodeHammerSqlGeneratorContract.cs" />
+    <Compile Include="FuncTypeFactory.cs" />
+    <Compile Include="FuncTypeFactoryContract.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="FunctionArea\Generators\ServiceLibraryGenerator\CodeHammerServiceLibraryGenerator.cs" />
+    <Compile Include="FunctionArea\Generators\SqlGenerator\CodeHammerSqlGenerator.cs" />
+    <EmbeddedResource Include="Resources\WcfService\RouteConfig.cs" />
+    <EmbeddedResource Include="Resources\WcfService\ICodeHammerService.cs" />
+    <EmbeddedResource Include="Resources\WcfService\DataContract.cs" />
+    <EmbeddedResource Include="Resources\WcfService\CastleGlobal.asax.cs">
+      <DependentUpon>CastleGlobal.asax</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Logging\Logger.cs" />
+    <EmbeddedResource Include="Resources\DotNet\UserControl\UserControlGridViewTemplate.aspx.designer.cs">
+      <DependentUpon>UserControlGridViewTemplate.aspx.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DotNet\UserControl\UserControlGridViewTemplate.aspx.cs">
+      <DependentUpon>UserControlGridViewTemplate.aspx</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\DatabaseManager\CodeHammerDatabaseManager.cs" />
+    <EmbeddedResource Include="Resources\DatabaseManager\CodeHammerDataAccessManager.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\SharedLibrary\CodeHammer.Domain.csproj">
+      <Project>{2558f4ab-02d0-4cd6-98ae-dd5f3b1ce6cf}</Project>
+      <Name>CodeHammer.Domain</Name>
+      <Private>False</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\CodeHammerServiceWcfProject\CodeHammerServiceProject.zip" />
+    <None Include="ArcToCore.pfx" />
+    <None Include="packages.config" />
+    <None Include="Resources\DatabaseManager\DatabaseConnectionStringSqlIntegratedtxt" />
+    <EmbeddedResource Include="Resources\WcfService\WebConfig.config">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\DatabaseManager\DatabaseConnectionStringSql - Copy.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\DatabaseManager\WebConfig.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\DotNet\UserControl\UserControlGridViewTemplate.aspx">
+      <SubType>ASPXCodeBehind</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Help\DataStream.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Help\IoCCastleWcf.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Help\Log4Net.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Help\SqlOrm.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Help\unitTest.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Help\wcfCall.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Help\wcfSecurity.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Help\wcfThrottling.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Logging\Logging.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\SqlProcess\CodeHammerColumnQuery.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\SqlProcess\CodeHammerGetContentsFromSPQuery.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\SqlProcess\CodeHammerGetPrimaryKeys.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\SqlProcess\CodeHammerSPQuery.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\SqlProcess\CodeHammerTableGetIsNULLABLEAndIsIdentityQuery.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\SqlProcess\CodeHammerTableQuery.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\SqlProcess\CodeHammerUser.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\WcfService\CastleGlobal.asax" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\WcfService\SvcTemplate.svc" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\WcfService\WebConfig.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Enable NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

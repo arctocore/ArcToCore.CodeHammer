@@ -1,0 +1,17 @@
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\CodeHammer\FactoryInstaller\bin\Release\FactoryInstaller.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\CodeHammer\FactoryInstaller\bin\Release\FactoryInstaller.pdb
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\CodeHammer\FactoryInstaller\bin\Release\Ninject.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\CodeHammer\FactoryInstaller\bin\Release\Ninject.xml
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\CodeHammer\FactoryInstaller\obj\Release\FactoryInstaller.csproj.AssemblyReference.cache
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\CodeHammer\FactoryInstaller\obj\Release\FactoryInstaller.csproj.CoreCompileInputs.cache
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\CodeHammer\FactoryInstaller\obj\Release\FactoryInstaller.csproj.CopyComplete
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\CodeHammer\FactoryInstaller\obj\Release\FactoryInstaller.dll
+C:\Users\z6soa\Downloads\CodeHammerMain-NewLook\CodeHammer\CodeHammer\FactoryInstaller\obj\Release\FactoryInstaller.pdb
+C:\tmp\DEMO\CodeHammer\FactoryInstaller\bin\Release\FactoryInstaller.dll
+C:\tmp\DEMO\CodeHammer\FactoryInstaller\bin\Release\FactoryInstaller.pdb
+C:\tmp\DEMO\CodeHammer\FactoryInstaller\bin\Release\Ninject.xml
+C:\tmp\DEMO\CodeHammer\FactoryInstaller\obj\Release\FactoryInstaller.csproj.AssemblyReference.cache
+C:\tmp\DEMO\CodeHammer\FactoryInstaller\obj\Release\FactoryInstaller.csproj.CoreCompileInputs.cache
+C:\tmp\DEMO\CodeHammer\FactoryInstaller\obj\Release\FactoryInstaller.csproj.CopyComplete
+C:\tmp\DEMO\CodeHammer\FactoryInstaller\obj\Release\FactoryInstaller.dll
+C:\tmp\DEMO\CodeHammer\FactoryInstaller\obj\Release\FactoryInstaller.pdb
